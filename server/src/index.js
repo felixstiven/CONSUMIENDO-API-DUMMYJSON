@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const app = express();
 userSchema = require('./models/model')
 
-const PORT =3001;
+const PORT =3002;
 
 mongoose.connect("mongodb+srv://felixstiven12:Stiven((2828))@cluster0.pymn1.mongodb.net/sample_mflix")
 
 const userModel1 = mongoose.model("comentario", userSchema);
 const comentario = new userModel1({
-    name: "Stiven Felix",
+    name: "yeimy orjuela",
     email: "felixstiven12@gmail.com",
     movie_id: 123456789,
     text: "This is a comment",
