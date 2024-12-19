@@ -35,7 +35,7 @@ app.post('/create', (req, res) => {
 });
 
 // obetener los datos
-app.get('/materiales', (req, res)=>{
+app.get('/ordenes', (req, res)=>{
     db.query('SELECT * FROM materiales', (err, result) => {
         if (err) {
             console.log(err);
@@ -43,6 +43,10 @@ app.get('/materiales', (req, res)=>{
             res.send(result)
         }
     })
+})
+
+app.put('/update',(req,res)=>{
+    
 })
 
 

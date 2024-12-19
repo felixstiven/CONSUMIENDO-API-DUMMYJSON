@@ -2,18 +2,58 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from "react";
 import Axios from "axios";
-import DataButton from "./getButton";
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; // libreria client
+
 
 
 
 function Crearorden(){
+
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError]= useState(null);
+    const [showData, setShowData] = useState(false)
+
     const navigate = useNavigate();
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [orden, setOrden] = useState("");
-    // const [ordenesTomadas, setOrdenesTomadas] = useState([]);
-    // const [id, setId] = useState();
+    const [editar, setEditar] = useState(false);
+    const [id, setId] = useState();
+
+
+    const fetchData = async ()=>{
+      setLoading(true);
+      setError(null);
+      try{
+          const response = await Axios.get('http://localhost:3001/ordenes');
+          setData(response.data);
+          setShowData(true); // mostrar datos depues de cargar 
+      } catch (err){
+          setError('ERROR AL CARGAR LOS DATOS');
+      } finally{
+          setLoading(false);
+      }
+  };
+  const clearDatos = ()=>{
+      setData([]);
+      setShowData(false)
+  }
+
+  const editarOrden = (val) =>{
+    setEditar(true);
+    setId(val.id);
+    setNombre(val.nombre);
+    setDescripcion(val.descripcion);
+    setOrden(val.orden);
+
+  }
+
+
+
+
+
+
 
 
     const add = () =>{
@@ -21,15 +61,55 @@ function Crearorden(){
         nombre: nombre,
         descripcion: descripcion,
         orden: orden
+      }).then(()=>{
+        limpiarDatos();
+        Swal.fire({
+          title: " <h1>Registro exitoso!!</h1>",
+          html: "la orden <strong>"+orden+"</strong> se ha enviado correctamente",
+          icon: "succes",
+          timer : 5000
+        })
+      }).catch(function(err){
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No se logro enviar la orden",
+          footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "Intenta mas tarde" : "Error en el servidor"
+        })
+      });
+    }
+
+    const limpiarDatos= ()=>{
+      setNombre("");
+      setDescripcion("");
+      setOrden("");
+      setId("")
+    }
+
+    const update = ()=>{
+      Axios.put("http://localhost:3001/create", {
+        id:id,
+        nombre:nombre,
+        descripcion:descripcion,
+        orden:orden
+      }).then(()=>{ //luego de que se envie la peticion
+        limpiarDatos();
+        Swal.fire({
+          title: " <h1>Actualizacion exitosa!!</h1>",
+          html: "la orden <strong>"+orden+"</strong> fue actualizado correctamente",
+          icon: "succes",
+          timer : 4000
+        })
+      }).catch(function(err){
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No se logro actualizar la orden",
+          footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
+        });
       })
     }
 
-    // const getOrdenesTomadas = () => {
-    //   Axios.get("http://localhost:3001/materiales").then((response)=>{
-    //     setOrdenesTomadas(response.data);
-    //   })
-    // }
-  
 
     return (
       <><div>
@@ -67,17 +147,56 @@ function Crearorden(){
           </div>
           <div className="card-footer text-muted">
             {
-              // editar?
-                  // <div>
-                  //   <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
-                  //   <button  className="btn btn-warning m-2" onClick={limpiarCampos}>Cancelar</button>
-                  // </div>  
-                    <button  className="btn btn-primary" onClick={add}>Registrar</button>
+              editar?
+                  <div>
+                    <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
+                    <button  className="btn btn-warning m-2" onClick={limpiarDatos}>Cancelar</button>
+                  </div>  
+                    :<button  className="btn btn-primary" onClick={add}>Registrar</button>
             }
           </div>
         </div>
         <div>
-          <DataButton/>
+        <button  className="btn btn-primary mr-2" onClick={fetchData}>Cargar datos</button> 
+            <button  className="btn btn-primary mr-2" onClick={clearDatos}>limpiar tabla</button>
+            <table className="table table-striped">
+                <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">numero de orden</th>
+                        </tr>
+                </thead>
+                    {loading && <p>Cargando...</p>}
+                    {error && <p>{error}</p>}
+                    {showData && (     
+                        <tbody>
+                        {data.map((val,index)=>(
+                            <tr key={index}>
+                                <td>{val.nombre}</td>
+                                <td>{val.descripcion}</td>
+                                <td>{val.orden} </td>
+                                <td>
+                                    <div className="btn-group" role="group" aria-label="Basic mixed styles example">
+                                        <button  type="button" className="btn btn-primary mr-2"
+                                            onClick={()=>{
+                                                editarOrden(val)
+                                            }}
+                                        >
+                                            Editar
+                                        </button>
+                                        <button  type="button" className="btn btn-primary mr-2"
+                                            onClick=""
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody> 
+                    )}
+            </table>
         </div>
         <div>
             <button onClick={()=> navigate(-1)}>volver</button>
