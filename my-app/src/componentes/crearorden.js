@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from "react";
 import Axios from "axios";
+import DataButton from "./getButton";
 // import Swal from 'sweetalert2';
 
 
@@ -11,7 +12,7 @@ function Crearorden(){
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [orden, setOrden] = useState("");
-    const [ordenesTomadas, setOrdenesTomadas] = useState([]);
+    // const [ordenesTomadas, setOrdenesTomadas] = useState([]);
     // const [id, setId] = useState();
 
 
@@ -20,20 +21,15 @@ function Crearorden(){
         nombre: nombre,
         descripcion: descripcion,
         orden: orden
-      }).then(()=>{
-        getOrdenesTomadas()
       })
     }
 
-    const getOrdenesTomadas = () => {
-      Axios.get("http://localhost:3001/materiales").then((response)=>{
-        setOrdenesTomadas(response.data);
-      })
-    }
-   
+    // const getOrdenesTomadas = () => {
+    //   Axios.get("http://localhost:3001/materiales").then((response)=>{
+    //     setOrdenesTomadas(response.data);
+    //   })
+    // }
   
-
-
 
     return (
       <><div>
@@ -81,28 +77,7 @@ function Crearorden(){
           </div>
         </div>
         <div>
-        <table className="table table-striped">
-              <thead>
-                  <tr>
-                      <th scope="col">nombre</th>
-                      <th scope="col">descripcion</th>
-                      <th scope="col">numero orden</th>
-                  </tr>
-              </thead>
-              <tbody>
-            {/* <button className='btn btn-success' onClick={getEmpleados}>Listar</button>  */}
-            {
-              ordenesTomadas.map((val, key)=>{
-                return  <tr key={val.id}>
-                            <td>{val.nombre}</td>
-                            <td>{val.descripcion}</td>
-                            <td>{val.orden}</td>
-                        </tr>         
-              })
-
-            }
-        </tbody>
-          </table>
+          <DataButton/>
         </div>
         <div>
             <button onClick={()=> navigate(-1)}>volver</button>

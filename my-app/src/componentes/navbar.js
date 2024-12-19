@@ -5,19 +5,20 @@ import './styleNavbar.css'
 
 const Navbar = () => {
     return(
-            <nav className="navbar navbar-dark bg-dark">
-                <ul className='navbar-nav mr-auto'>
-                    <li className='nav-item active'>
-                        <NavLink  className="nav-link " to="/" >Inicio</NavLink>
+            <nav className="navbarContainer">
+                <ul className='navbar'>
+                    <li className='list'>
+                        <NavLink  className="list-2" to="/" >Inicio</NavLink>
                     </li>
-                    <li>
-                        <NavLink className="nav-link"  to="/create" >Crear orden</NavLink>
+                    <li className='list'>
+                        <NavLink className="list-2"  to="/create" >Crear orden</NavLink>
                     </li>
-                    <li>
-                        <NavLink className="nav-link" to="/contacto" >Contacto</NavLink>
+                    <li className='list'>
+                        <NavLink className="list-2" to="/contacto" >Contacto</NavLink>
                     </li>
                 </ul>
             </nav>
+            
         )
 }
 
