@@ -22,7 +22,7 @@ app.post('/create', (req, res) => {
     const descripcion = req.body.descripcion
     const orden = req.body.orden
 
-    db.query(' INSERT INTO materiales(nombre, descripcion, orden) VALUES (?,?,?)', [nombre, descripcion, orden],
+    db.query(' INSERT INTO materiales( nombre, descripcion, orden) VALUES (?,?,?)', [nombre, descripcion, orden],
         (err,result)=>{
             if(err){
                 console.log(err)
@@ -45,8 +45,22 @@ app.get('/ordenes', (req, res)=>{
     })
 })
 
+// actualizacion base de datos
 app.put('/update',(req,res)=>{
-    
+    const id = req.body.id
+    const nombre = req.body.nombre
+    const descripcion = req.body.descripcion
+    const orden = req.body.orden
+
+    db.query('UPDATE materiales SET nombre=?, descripcion=?, orden=? WHERE id=?', [nombre,descripcion,orden,id],
+        (err,result)=>{
+            if(err){
+                console.log(err)
+            } else{
+                res.send(result)
+            }
+        }
+    )
 })
 
 

@@ -50,12 +50,6 @@ function Crearorden(){
   }
 
 
-
-
-
-
-
-
     const add = () =>{
       Axios.post("http://localhost:3001/create", {
         nombre: nombre,
@@ -84,15 +78,17 @@ function Crearorden(){
       setDescripcion("");
       setOrden("");
       setId("")
+      setEditar(false)
     }
 
     const update = ()=>{
-      Axios.put("http://localhost:3001/create", {
+      Axios.put("http://localhost:3001/update", {
         id:id,
         nombre:nombre,
         descripcion:descripcion,
         orden:orden
       }).then(()=>{ //luego de que se envie la peticion
+        getOrdenes()
         limpiarDatos();
         Swal.fire({
           title: " <h1>Actualizacion exitosa!!</h1>",
@@ -108,6 +104,16 @@ function Crearorden(){
           footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
         });
       })
+    }
+
+    // const getOrdenes = ()=>{
+    //   Axios.get("http://localhost:3001/ordenes").then((response)=>{  
+    //     setData(response.data)
+    // })
+    const getOrdenes = ()=>{
+        Axios.get("http://localhost:3001/ordenes").then((response)=>{
+          setData(response.data)
+        })
     }
 
 
@@ -152,7 +158,7 @@ function Crearorden(){
                     <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
                     <button  className="btn btn-warning m-2" onClick={limpiarDatos}>Cancelar</button>
                   </div>  
-                    :<button  className="btn btn-primary" onClick={add}>Registrar</button>
+                        :<button  className="btn btn-primary" onClick={add}>Registrar</button>
             }
           </div>
         </div>
@@ -162,17 +168,20 @@ function Crearorden(){
             <table className="table table-striped">
                 <thead>
                         <tr>
+                            <th scope="col">#</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">numero de orden</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                 </thead>
                     {loading && <p>Cargando...</p>}
                     {error && <p>{error}</p>}
                     {showData && (     
                         <tbody>
-                        {data.map((val,index)=>(
-                            <tr key={index}>
+                        {data.map((val,key)=>(
+                            <tr key={val.id}>
+                                <td>{val.id} </td>
                                 <td>{val.nombre}</td>
                                 <td>{val.descripcion}</td>
                                 <td>{val.orden} </td>
@@ -203,6 +212,7 @@ function Crearorden(){
         </div>
       </>
     )
-}
+  }
+
 
 export default Crearorden;

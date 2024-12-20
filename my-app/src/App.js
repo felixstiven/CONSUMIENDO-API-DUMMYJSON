@@ -16,7 +16,6 @@ const App = ()=> {
           <Route path="/create" element={<Crearorden/>} />
           <Route path="/contacto" element={<Contacto/>}/>
           <Route path="*" element={<NotFound/>}/>
-          <Route path="/" element={Producto}/>
         </Routes>
     </>
   );
