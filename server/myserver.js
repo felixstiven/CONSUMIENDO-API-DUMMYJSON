@@ -18,11 +18,16 @@ const db = mysql.createConnection({
 // peticion guardar en base de datos 
 
 app.post('/create', (req, res) => {
-    const nombre = req.body.nombre
+    const orden= req.body.orden
+    const numeroContrato = req.body.numeroContrato
+    const cliente = req.body.cliente
+    const fechaSolicitud = req.body.fechaSolicitud
+    const fechaEntrega = req.body.fechaEntrega
+    const direccion = req.body.direccion
+    const nombreSolicitante = req.body.nombreSolicitante
     const descripcion = req.body.descripcion
-    const orden = req.body.orden
 
-    db.query(' INSERT INTO materiales( nombre, descripcion, orden) VALUES (?,?,?)', [nombre, descripcion, orden],
+    db.query(' INSERT INTO materiales( orden, contrato, cliente, fechasolicitud, fechaentrega, direccion, nombresolicitante, descripcion) VALUES (?,?,?,?,?,?,?,?)', [orden, numeroContrato, cliente, fechaSolicitud, fechaEntrega, direccion, nombreSolicitante, descripcion], (
         (err,result)=>{
             if(err){
                 console.log(err)
@@ -30,7 +35,7 @@ app.post('/create', (req, res) => {
                 res.send(result)
             }
         }
-    )
+    ))
 
 });
 
@@ -47,12 +52,16 @@ app.get('/ordenes', (req, res)=>{
 
 // actualizacion base de datos
 app.put('/update',(req,res)=>{
-    const id = req.body.id
-    const nombre = req.body.nombre
+    const orden= req.body.orden
+    const numeroContrato = req.body.numeroContarto
+    const cliente = req.body.cliente
+    const fechaSolicitud = req.body.fechaSolicitud
+    const fechaEntrega = req.body.fechaEntrega
+    const direccion = req.body.direccion
+    const nombreSolicitante = req.body.nombreSolicitante
     const descripcion = req.body.descripcion
-    const orden = req.body.orden
 
-    db.query('UPDATE materiales SET nombre=?, descripcion=?, orden=? WHERE id=?', [nombre,descripcion,orden,id],
+    db.query('UPDATE materiales SET orden=?, numerocontrato=?, cliente=?, fechasolicitud=?, fechaentrega=?, direccion=?, nombresolicitante, descripcion WHERE id=?', [orden, numeroContrato,cliente, fechaSolicitud, fechaEntrega, direccion, nombreSolicitante, descripcion], (
         (err,result)=>{
             if(err){
                 console.log(err)
@@ -60,7 +69,21 @@ app.put('/update',(req,res)=>{
                 res.send(result)
             }
         }
-    )
+    ))
+})
+
+// eliminar datos 
+app.delete('/delete/:id', (req, res)=>{
+    const id = req.params.id
+    db.query('DELETE FROM materiales WHERE id=?', id,
+        (err, result)=>{
+            if (err) {
+                console.log(err)
+            } else{
+                res.send(result)
+            }
+        }
+    )    
 })
 
 

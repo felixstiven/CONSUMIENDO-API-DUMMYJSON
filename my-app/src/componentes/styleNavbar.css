@@ -24,3 +24,7 @@ li:hover{
     transition: 250ms;
     background-color: #000000;
 }
+
+.text-center{
+    text-align: center;
+}
