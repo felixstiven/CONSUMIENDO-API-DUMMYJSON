@@ -1,6 +1,7 @@
 
 import React from "react";
 import {Card, CardContent, CardMedia, Typography, Button} from '@mui/material';
+import { Link } from "react-router-dom";
 
 
 
@@ -35,12 +36,12 @@ function Producto() {
                         <Typography variant="body2">Tu como administrador puedes ver las ordenes de todos los empleados por medio de notificaciones</Typography>
                     </li>
                 </ul>
-                <Button variant="contained" color="success" sx={{marginTop:2}}>
-                    visitar haora
-                </Button>
-                
-
-
+                <Link to="/register">
+                <Button   variant="contained" color="success" sx={{marginTop:2}}>Registrarse</Button>
+                </Link>
+                <Link to="/login">
+                <Button   variant="contained" color="success" sx={{marginTop:2}}>Inicio de Sesion</Button>
+                </Link>
             </CardContent>
         </Card>
     );
