@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const author = require( './routes/author');
 
 
 const PORT = 3001;
@@ -17,6 +18,13 @@ const db = mysql.createConnection({
   password: '3883',
   database: 'gestor_obras'
 })
+
+mongoose.connect("mongodb+srv://felixstiven12:Stiven((2828))@cluster0.pymn1.mongodb.net/sample_mflix",{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+
+app.use('/api/auth', author);
 
 // peticion de guardar en base de datos
 app.post('/create', (req, res) => {

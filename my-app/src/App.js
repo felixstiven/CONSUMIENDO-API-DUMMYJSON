@@ -5,6 +5,7 @@ import Crearorden from "./componentes/crearorden";
 import Contacto from "./componentes/contacto";
 import NotFound from "./componentes/NotFound";
 import Login from "./componentes/login";
+import Register from "./componentes/register";
 
 
 
@@ -17,7 +18,7 @@ const App = ()=> {
           <Route path="/create" element={<Crearorden/>} />
           <Route path="/contacto" element={<Contacto/>}/>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/resgister" element={<NotFound/>}/>
+          <Route path="/register" element={<Register/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
     </>
