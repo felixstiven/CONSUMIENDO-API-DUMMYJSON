@@ -24,7 +24,7 @@ mongoose.connect("mongodb+srv://felixstiven12:Stiven((2828))@cluster0.pymn1.mong
   useUnifiedTopology: true,
 })
 
-app.use('/api/auth', author);
+app.post('/register', author);
 
 // peticion de guardar en base de datos
 app.post('/create', (req, res) => {
