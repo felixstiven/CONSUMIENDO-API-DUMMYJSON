@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 
 const PORT = 3001;
