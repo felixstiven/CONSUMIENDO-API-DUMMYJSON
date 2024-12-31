@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-const mongoose = require('mongoose');
-const author = require( './routes/author');
+// const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');// PARA ENCRIPTAR CONTRASEÑAS
+// const User = require('../models/modelUser');
 
 
 const PORT = 3001;
@@ -19,12 +20,27 @@ const db = mysql.createConnection({
   database: 'gestor_obras'
 })
 
-mongoose.connect("mongodb+srv://felixstiven12:Stiven((2828))@cluster0.pymn1.mongodb.net/sample_mflix",{
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+app.post('/register', async(req, res) => {
+  const {username, email, password} = req.body;
+  
+  try{
+    // encriptando contraseñas de usuario
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-app.post('/register', author);
+    db.query('INSERT INTO login (username, email, password) VALUES(?, ?, ?)', [username, email, hashedPassword],
+          (err, result) => {
+            if(err){
+              console.log(err)
+            } else{
+              res.send(result)
+            }
+          }
+    );
+  } catch(err){
+    console.log(err)
+    res.status(500).send('Error al encriptar la contraseña')
+  }
+});
 
 // peticion de guardar en base de datos
 app.post('/create', (req, res) => {

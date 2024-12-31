@@ -1,7 +1,9 @@
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+// import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
-import axios from 'axios';
+import Axios from 'axios';
+import Swal from 'sweetalert2'; 
+
 
 
 
@@ -11,22 +13,39 @@ function Register (){
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
 
-    const submit = async(e) =>{
-        e.preventDefault();
-
-        try{
-            const response = axios.post('http://localhost:3001/register', {
+    const submit = () => {
+            Axios.post('http://localhost:3001/register', {
                 username,
                 email,
                 password,
-            });
-            setMessage((await response).data.message)//mensaje de exito 
-        } catch (error) {
-            setMessage(error.message || 'Error en el registro')//mensaje de error
-        }
+            }).then(() =>{
+                limpiar();
+                Swal.fire({
+                        title: " <h1>Registro exitoso!!</h1>",
+                        html: "El usuario <strong>"+username+"</strong> se ha agregado correctamente",
+                        icon: "success",
+                        timer : 3000,
+                })
+            }).catch(function(err){
+                Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "No se logro agregar el usuario",
+                        footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "Intenta mas tarde" : "Error en el servidor",
+                        timer: 3000,
+                });
+            })
+    };
+
+    // limpiar campos de register
+
+    const limpiar = () => {
+        setUsername("");
+        setEmail("");
+        setPassword("");
     }
+    
 
 
 
@@ -36,35 +55,20 @@ function Register (){
     return (
 
         <div className='container'>
-            <Form onSubmit={submit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Ingresa un nombre se usuario</Form.Label>
-                <Form.Control type="text" placeholder="ingresa un usuario" 
-                    value={username} 
-                    onChange={(e) => setUsername(e.target.value)} 
-                    required />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Ingresa un correo electronico</Form.Label>
-                <Form.Control type="email" placeholder="Ingresa un correo" 
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)}  
-                    required/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Label>Ingresa una contraseña</Form.Label>
-                <Form.Control type="password" placeholder="Contraseña" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)}
-                    required />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                enviar
-            </Button>
-        </Form>
-        <p>{message}</p>
+            <div className='row'>
+                <label>usario</label>
+                <input type="text" placeholder='ingresa un usario' value={username} onChange={(e) => setUsername(e.target.value)}/>
+            </div>
+            <div className='row'>
+                <label>email</label>
+                <input type="text" placeholder='ingresa un email' value={email} onChange={(e) => setEmail(e.target.value)}/>
+            </div>
+            <div className='row'>
+                <label>contraseña</label>
+                <input type="password" placeholder='ingresa una contrseña' value={password} onChange={(e) => setPassword(e.target.value)}/>
+            </div>
+            <Button onClick={submit}>registrar</Button>
         </div>
-
     )
 }
 
