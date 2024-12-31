@@ -28,10 +28,13 @@ function Register (){
                         timer : 3000,
                 })
             }).catch(function(err){
+                const errorMessage = err.response && err.response.data && err.response.data.message
+                    ? err.response.data.message
+                    :'Error en el servidor '
                 Swal.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "No se logro agregar el usuario",
+                        text: errorMessage,
                         footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "Intenta mas tarde" : "Error en el servidor",
                         timer: 3000,
                 });
