@@ -12,7 +12,6 @@ import Register from "./componentes/register";
 const App = ()=> {
   return (
     <>
-
         <Routes>
           <Route path="/" element={<Producto />} />
           <Route path="/create" element={<Crearorden/>} />

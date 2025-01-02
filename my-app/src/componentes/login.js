@@ -43,16 +43,8 @@ function Login (){
             });
     }
 
-
-
-
-
-
-
-
-        
     return (
-        <Form>
+        <Form className='container-2'>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control

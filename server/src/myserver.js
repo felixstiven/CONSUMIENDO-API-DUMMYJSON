@@ -9,8 +9,8 @@ const jwt = require('jsonwebtoken');// PARA GENERAR TOKENS
 
 const PORT = 3001;
 const cors = require('cors');
-const { resolve } = require('path');
-const { rejects } = require('assert');
+// const { resolve } = require('path');
+// const { rejects } = require('assert');
 
 app.use(cors())
 app.use(express.json())

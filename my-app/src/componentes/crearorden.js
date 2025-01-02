@@ -17,7 +17,7 @@ function Crearorden() {
   
   const [ordenesList,setordenes] = useState([]);
   
-  
+// peticion  enviar al backend guardar datos
   const add = () => {
     Axios.post("http://localhost:3001/create", { // metodo utilzado en el back
       orden,
@@ -43,6 +43,7 @@ function Crearorden() {
     })
   }
 
+// peticion al backen actualizacion de datos existentes  
   const update = () => {
     Axios.put("http://localhost:3001/update", { // metodo utilzado en el back
       id,
@@ -70,6 +71,7 @@ function Crearorden() {
     })
   };
 
+// peticion al backend eliminar datos de tabla existentes  
   const deleteOrdenes = (val) => {  
       Swal.fire({
         title: "Eliminar Orden?",
@@ -102,6 +104,7 @@ function Crearorden() {
       })
   }
   
+// funcion de limpiar campos tabla  depues de una peticion 
   const limpiarCampos = () => {
     setOrden("");
     setContrato("");
@@ -113,6 +116,7 @@ function Crearorden() {
     
   }
   
+// funcion editar datos tabla existentes  
   const editarOrden = (val) =>{
     setEditar(true);
 
@@ -124,126 +128,125 @@ function Crearorden() {
     setId(val.id);
   }
 
+// funcion para ocultar lista de datos en tabla  
 const ocultarOrdenes = () =>{
   setordenes([])
 }
 
+// peticion al backend para obtener todos los datos guardados en la base
   const getOrdenes = () => {
     Axios.get("http://localhost:3001/ordenes").then((response)=>{
       setordenes(response.data);
     });
   }  
   
-  return (
-
-
-  <div className="container">
-  
-      <div className="card text-center">
-        <div className="card-header">
-          GESTION DE Ordenes
-        </div>
-        <div className="card-body">
-          <div className="input-group input-group-sm mb-3">
-            <span className="input-group-text" id="inputGroup-sizing-sm">Numero de Orden:</span>
-            <input 
-                onChange={(event)=> {
-                  setOrden(event.target.value);
-                }}
-              type="text" className="form-control" placeholder='ingresa numero de orden'  value={orden} aria-label="Username" aria-describedby="basic-addon1" required />
+    return (
+      <div className="container">
+      
+          <div className="card text-center">
+            <div className="card-header">
+              GESTION DE Ordenes
+            </div>
+            <div className="card-body">
+              <div className="input-group input-group-sm mb-3">
+                <span className="input-group-text" id="inputGroup-sizing-sm">Numero de Orden:</span>
+                <input 
+                    onChange={(event)=> {
+                      setOrden(event.target.value);
+                    }}
+                  type="text" className="form-control" placeholder='ingresa numero de orden'  value={orden} aria-label="Username" aria-describedby="basic-addon1" required />
+              </div>
+              <div className="input-group input-group-sm mb-3">
+                <span className="input-group-text" id="inputGroup-sizing-sm">Numero contrato:</span>
+                <input 
+                    onChange={(event)=> {
+                      setContrato(event.target.value);
+                    }}
+                  type="text" className="form-control" placeholder='ingresa un numero contrato' value={contrato} aria-label="Username" aria-describedby="basic-addon1"/>
+              </div>
+              <div className="input-group input-group-sm mb-3">
+                <span className="input-group-text" id="inputGroup-sizing-sm">Nombre cliente contrato:</span>
+                <input 
+                    onChange={(event)=> {
+                      setcliente(event.target.value);
+                    }}
+                  type="text" className="form-control" placeholder='ingresa nombre cliente' value={cliente} aria-label="Username" aria-describedby="basic-addon1"/>
+              </div>
+              <div className="input-group input-group-sm mb-3">
+                <span className="input-group-text" id="inputGroup-sizing-sm">Descripcion:</span>
+                <input 
+                    onChange={(event)=> {
+                      setDescripcion(event.target.value);
+                    }}
+                  type="text" className="form-control"  placeholder='ingresa descripcion' value={descripcion} aria-label="Username" aria-describedby="basic-addon1"/>
+              </div>
+              <div className="input-group input-group-sm mb-3">
+                <span className="input-group-text" id="inputGroup-sizing-sm">Nombre solcicitante:</span>
+                <input 
+                    onChange={(event)=> {
+                      setNombre(event.target.value);
+                    }}
+                  type="text" className="form-control" placeholder='ingresa nombre' value={nombre} aria-label="Username" aria-describedby="basic-addon1"/>
+              </div>
+            </div>
+            <div className="card-footer text-muted">
+              {
+                editar?
+                    <div>
+                      <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
+                      <button  className="btn btn-warning m-2" onClick={limpiarCampos}>Cancelar</button>
+                    </div>  
+                      :<button  className="btn btn-primary" onClick={add}>Registrar</button>
+              }
+            </div>
           </div>
-          <div className="input-group input-group-sm mb-3">
-            <span className="input-group-text" id="inputGroup-sizing-sm">Numero contrato:</span>
-            <input 
-                onChange={(event)=> {
-                  setContrato(event.target.value);
-                }}
-              type="text" className="form-control" placeholder='ingresa un numero contrato' value={contrato} aria-label="Username" aria-describedby="basic-addon1"/>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Orden</th>
+                <th scope="col">Contrato</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+                <button className='btn btn-success' onClick={getOrdenes}>Listar</button> 
+                <button className='btn btn-success' onClick={ocultarOrdenes}>Ocultar</button> 
+                {
+                  ordenesList.map((val, key)=>{
+                    return  <tr key={val.id}>
+                                <th >{val.id}</th>
+                                <td>{val.orden}</td>
+                                <td>{val.contrato}</td>
+                                <td>{val.cliente}</td>
+                                <td>{val.descripcion}</td>
+                                <td>{val.nombre}</td>
+                                <td>
+                                  <div className="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <button type="button" className="btn btn-info"
+                                      onClick={()=>{
+                                          editarOrden(val);
+                                      }}
+                                    >Editar</button>
+                                    <button type="button" onClick={()=>{
+                                      deleteOrdenes(val);
+                                    }} className="btn btn-warning">Eliminar</button>
+                                  </div>
+                                </td>
+                            </tr>         
+                  })
+                }
+            </tbody>
+          </table>
+          <div>
+              <BackButton/>
           </div>
-          <div className="input-group input-group-sm mb-3">
-            <span className="input-group-text" id="inputGroup-sizing-sm">Nombre cliente contrato:</span>
-            <input 
-                onChange={(event)=> {
-                  setcliente(event.target.value);
-                }}
-              type="text" className="form-control" placeholder='ingresa nombre cliente' value={cliente} aria-label="Username" aria-describedby="basic-addon1"/>
-          </div>
-          <div className="input-group input-group-sm mb-3">
-            <span className="input-group-text" id="inputGroup-sizing-sm">Descripcion:</span>
-            <input 
-                onChange={(event)=> {
-                  setDescripcion(event.target.value);
-                }}
-              type="text" className="form-control"  placeholder='ingresa descripcion' value={descripcion} aria-label="Username" aria-describedby="basic-addon1"/>
-          </div>
-          <div className="input-group input-group-sm mb-3">
-            <span className="input-group-text" id="inputGroup-sizing-sm">Nombre solcicitante:</span>
-            <input 
-                onChange={(event)=> {
-                  setNombre(event.target.value);
-                }}
-              type="text" className="form-control" placeholder='ingresa nombre' value={nombre} aria-label="Username" aria-describedby="basic-addon1"/>
-          </div>
-        </div>
-        <div className="card-footer text-muted">
-          {
-            editar?
-                <div>
-                  <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
-                  <button  className="btn btn-warning m-2" onClick={limpiarCampos}>Cancelar</button>
-                </div>  
-                  :<button  className="btn btn-primary" onClick={add}>Registrar</button>
-          }
-        </div>
-      </div>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Orden</th>
-            <th scope="col">Contrato</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-            <button className='btn btn-success' onClick={getOrdenes}>Listar</button> 
-            <button className='btn btn-success' onClick={ocultarOrdenes}>Ocultar</button> 
-            {
-              ordenesList.map((val, key)=>{
-                return  <tr key={val.id}>
-                            <th >{val.id}</th>
-                            <td>{val.orden}</td>
-                            <td>{val.contrato}</td>
-                            <td>{val.cliente}</td>
-                            <td>{val.descripcion}</td>
-                            <td>{val.nombre}</td>
-                            <td>
-                              <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <button type="button" className="btn btn-info"
-                                  onClick={()=>{
-                                      editarOrden(val);
-                                  }}
-                                >Editar</button>
-                                <button type="button" onClick={()=>{
-                                  deleteOrdenes(val);
-                                }} className="btn btn-warning">Eliminar</button>
-                              </div>
-                            </td>
-                        </tr>         
-              })
-
-            }
-        </tbody>
-      </table>
-      <div>
-          <BackButton/>
-      </div>
-  </div>  
-  );
-}
+      </div>  
+    );
+}    
 
 
 export default Crearorden;
