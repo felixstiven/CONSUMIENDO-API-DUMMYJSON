@@ -2,7 +2,8 @@ import Button from 'react-bootstrap/Button';
 // import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 import Axios from 'axios';
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom'; 
 
 
 
@@ -71,6 +72,9 @@ function Register (){
                 <input type="password" placeholder='ingresa una contrseña' value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
             <Button onClick={submit}>registrar</Button>
+            <Link to='/login'>
+                <Button>iniciar sesion</Button>
+            </Link>
         </div>
     )
 }

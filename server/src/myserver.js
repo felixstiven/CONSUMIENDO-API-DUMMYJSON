@@ -3,6 +3,7 @@ const app = express();
 const mysql = require('mysql');
 // const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');// PARA ENCRIPTAR CONTRASEÑAS
+const jwt = require('jsonwebtoken');// PARA GENERAR TOKENS
 // const User = require('../models/modelUser');
 
 
@@ -22,7 +23,7 @@ const db = mysql.createConnection({
   database: 'gestor_obras'
 })
 
-// uso en el enpoint
+// peticion  registrar usuario 
 app.post('/register', async (req, res) => {  
   const { username, email, password } = req.body;  
 
@@ -71,7 +72,43 @@ app.post('/register', async (req, res) => {
     res.status(500).json({ message: 'Error en el servidor.' });  
   }  
 });
-// peticion de guardar en base de datos
+
+// inicio de sesion
+app.post('/login', (req, res)=>{
+  const {email, password} = req.body;
+
+
+    db.query('SELECT * FROM login WHERE email =?', [email], (err, results) => {
+      if(err){
+        console.error('Error al verificar contraseña', err)
+        return res.status(500).json({message:'Error al verificar contraseña.'});
+      }
+      if(results.length === 0){
+        console.log('Email y/o contraseña incorrecto')
+        return res.status(401).json({message:'Email y/o contraseña incorrecto'});
+
+      }
+
+      const user = results[0];
+      // verificar la contraseña
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if(err){
+          console.error('erro al verificar contraseña')
+          return res.status(500).json({message:'Error al verificar la contraseña'});
+        }
+        if(!isMatch){
+          console.log('Email y/o contraseña incorrectos')
+          return res.status(401).json({message: 'Email y/o contraseña incorrectos'});
+        }
+        // crear token de autenticacion
+        const token = jwt.sign({id: user.id, username: user.username}, 'secretkey', {expiresIn:'1h'});
+
+        res.status(200).json({message:'Inicio de sesion exitoso', token})
+      });
+    });
+});
+
+// peticion de guardar  en base de datos
 app.post('/create', (req, res) => {
   const orden = req.body.orden
   const contrato= req.body.contrato
@@ -89,6 +126,7 @@ app.post('/create', (req, res) => {
     }
   )
 })
+
 // obtener los datos
 app.get('/ordenes', (req, res) => {
   db.query('SELECT * FROM  materiales',
@@ -136,9 +174,6 @@ app.delete('/delete/:id', (req, res) => {
     }
   )
 })
-
-
-
 
 
 app.listen(PORT, ()=>{
