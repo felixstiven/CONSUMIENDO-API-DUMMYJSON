@@ -5,71 +5,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2'; 
 import {BackButton} from './hook';
 
-function Crearorden() {
+function CrearordenAdmin() {
 
   const [orden, setOrden] = useState("");
   const [contrato, setContrato] = useState();
   const [cliente, setcliente] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [nombre, setNombre] = useState();
-  const [editar, setEditar] = useState(false);
-  const [id, setId] = useState();
+
   
   const [ordenesList,setordenes] = useState([]);
   
-// peticion  enviar al backend guardar datos
-  const add = () => {
-    Axios.post("http://localhost:3001/create", { // metodo utilzado en el back
-      orden,
-      contrato,
-      cliente,
-      descripcion,
-      nombre,
-    }).then(()=>{ //luego de que se envie la peticion
-      limpiarCampos();
-      Swal.fire({
-        title: " <h1>Registro exitoso!!</h1>",
-        html: "la orden <strong>"+orden+"</strong> se ha agregado correctamente",
-        icon: "succes",
-        timer : 3000
-      })
-    }).catch(function(err){
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "No se logro agregar la orden",
-        footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "Intenta mas tarde" : "Error en el servidor"
-      });
-    })
-  }
 
-// peticion al backen actualizacion de datos existentes  
-  const update = () => {
-    Axios.put("http://localhost:3001/update", { // metodo utilzado en el back
-      id,
-      orden,
-      contrato,
-      cliente,
-      descripcion,
-      nombre,
-    }).then(()=>{ //luego de que se envie la peticion
-      getOrdenes();
-      limpiarCampos();
-      Swal.fire({
-        title: " <h1>Actualizacion exitosa!!</h1>",
-        html: "la  <strong>"+orden+"</strong> fue actualizado correctamente",
-        icon: "succes",
-        timer : 4000
-      })
-    }).catch(function(err){
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "No se logro actualizar el empleado",
-        footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
-      });
-    })
-  };
 
 // peticion al backend eliminar datos de tabla existentes  
   const deleteOrdenes = (val) => {  
@@ -111,22 +58,9 @@ function Crearorden() {
     setcliente("");
     setDescripcion("");
     setNombre("");
-    setId("");
-    setEditar(false);
     
   }
   
-// funcion editar datos tabla existentes  
-  const editarOrden = (val) =>{
-    setEditar(true);
-
-    setOrden(val.orden);
-    setContrato(val.contrato);
-    setcliente(val.cliente);
-    setDescripcion(val.descripcion);
-    setNombre(val.nombre);
-    setId(val.id);
-  }
 
 // funcion para ocultar lista de datos en tabla  
 const ocultarOrdenes = () =>{
@@ -189,14 +123,6 @@ const ocultarOrdenes = () =>{
                     }}
                   type="text" className="form-control" placeholder='ingresa nombre' value={nombre} aria-label="Username" aria-describedby="basic-addon1"/>
               </div>  
-              {
-                editar?
-                    <div>
-                      <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
-                      <button  className="btn btn-warning m-2" onClick={limpiarCampos}>Cancelar</button>
-                    </div>  
-                      :<button  className="btn btn-primary" onClick={add}>Registrar</button>
-              }
             </div>
           </div>
           <table className="table table-striped">
@@ -226,11 +152,6 @@ const ocultarOrdenes = () =>{
                                 <td>{val.nombre}</td>
                                 <td>
                                   <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                    <button type="button" className="btn btn-info"
-                                      onClick={()=>{
-                                          editarOrden(val);
-                                      }}
-                                    >Editar</button>
                                     <button type="button" onClick={()=>{
                                       deleteOrdenes(val);
                                     }} className="btn btn-warning">Eliminar</button>
@@ -250,7 +171,4 @@ const ocultarOrdenes = () =>{
 }    
 
 
-export default Crearorden;
-
-
-
+export default CrearordenAdmin;

@@ -1,8 +1,10 @@
 import React from 'react';  
+import Navbar from './navbar.js';
 
 const Dashboard = () => {  
   return (  
     <div className="container mt-5">  
+       <Navbar/>
       <h1>Bienvenido al Panel de Gestión de Órdenes</h1>  
       <div className="row">  
         <div className="col-md-4">  

@@ -160,6 +160,22 @@ app.put('/update', (req, res) => {
   )
 })
 
+//peticion cambio de estado en las ordenes
+app.post('/cambiar_estado/:id', (req, res) => {
+  
+  const orderId = req.params.id;
+  const {status} = req.body;
+
+  db.query('UPDATE login SET estado = ? WHERE id=?', [status,orderId], (err,results) =>{
+    if(err){
+      return res.status(500).send(err)
+    }else{
+      res.send(results)
+    }
+  })
+
+})
+
 // eleminar datos
 app.delete('/delete/:id', (req, res) => {
   const id = req.params.id

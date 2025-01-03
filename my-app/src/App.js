@@ -7,6 +7,7 @@ import NotFound from "./componentes/NotFound";
 import Login from "./componentes/login";
 import Register from "./componentes/register";
 import Dashboard from "./componentes/home";
+import CrearordenAdmin from "./componentes/admin";
 
 
 
@@ -20,6 +21,8 @@ const App = ()=> {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/home" element={<Dashboard/>}/>
+          <Route path="/admin/gestion" element={<CrearordenAdmin/>}/>
+          
           <Route path="*" element={<NotFound/>}/>
         </Routes>
     </>
