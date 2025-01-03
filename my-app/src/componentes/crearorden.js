@@ -37,7 +37,7 @@ function Crearorden() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "No se logro agregar el empleado",
+        text: "No se logro agregar la orden",
         footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "Intenta mas tarde" : "Error en el servidor"
       });
     })

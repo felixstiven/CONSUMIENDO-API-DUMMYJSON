@@ -27,7 +27,7 @@ function Login (){
                             timer : 4000,
                 }).then(()=>{
                     // redirigiendo despues de la alerta exito de sesion
-                    navigate('/create')
+                    navigate('/home')
                 })
             }).catch((err) =>{
                 const errorMesagge = err.response && err.response.data && err.response.data.message

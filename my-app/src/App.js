@@ -6,6 +6,7 @@ import Contacto from "./componentes/contacto";
 import NotFound from "./componentes/NotFound";
 import Login from "./componentes/login";
 import Register from "./componentes/register";
+import Dashboard from "./componentes/home";
 
 
 
@@ -18,6 +19,7 @@ const App = ()=> {
           <Route path="/contacto" element={<Contacto/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
+          <Route path="/home" element={<Dashboard/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
     </>
