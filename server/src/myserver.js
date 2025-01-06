@@ -164,9 +164,9 @@ app.put('/update', (req, res) => {
 app.post('/cambiar_estado/:id', (req, res) => {
   
   const orderId = req.params.id;
-  const {status} = req.body;
+  const {estado} = req.body;
 
-  db.query('UPDATE login SET estado = ? WHERE id=?', [status,orderId], (err,results) =>{
+  db.query('UPDATE materiales SET estado = ? WHERE id=?', [estado,orderId], (err,results) =>{
     if(err){
       return res.status(500).send(err)
     }else{
@@ -175,6 +175,27 @@ app.post('/cambiar_estado/:id', (req, res) => {
   })
 
 })
+
+// Obetener ordenes filtradas por estado
+app.get('/ordenes/:estado?', (req, result) => {
+  const estado = req.params.estado;
+  let query = 'SELECT * FROM materiales';
+  const queryParams = [];
+  
+  if(estado){
+    query += 'WHERE estado = ?';
+    queryParams.push(estado);
+  }
+
+  db.query(query, queryParams, (err,result) =>{
+    if(err){
+      console.log(err);
+    }else {
+      res.send(result)
+    }
+  });
+});
+
 
 // eleminar datos
 app.delete('/delete/:id', (req, res) => {

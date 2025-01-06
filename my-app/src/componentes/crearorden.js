@@ -12,6 +12,7 @@ function Crearorden() {
   const [cliente, setcliente] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [nombre, setNombre] = useState();
+  const [estado, setEstado] = useState("pendiente");
   const [editar, setEditar] = useState(false);
   const [id, setId] = useState();
   
@@ -25,6 +26,7 @@ function Crearorden() {
       cliente,
       descripcion,
       nombre,
+      estado,
     }).then(()=>{ //luego de que se envie la peticion
       limpiarCampos();
       Swal.fire({
@@ -52,6 +54,7 @@ function Crearorden() {
       cliente,
       descripcion,
       nombre,
+      estado,
     }).then(()=>{ //luego de que se envie la peticion
       getOrdenes();
       limpiarCampos();
@@ -71,6 +74,18 @@ function Crearorden() {
     })
   };
 
+// cambio de estado 
+const cambiarEstado = (id, nuevoEstado) => {
+  Axios(`http://localhost:3001/cambiar_estado/${id}`, {estado: nuevoEstado})
+  .then(() =>{
+    getOrdenes(); // llmada para actualoizar la lista de ordenes 
+    Swal.fire('Estado actualizado', '', 'success');
+  })
+  .catch(err => {
+    console.log(err);
+    Swal.fire('Error', 'No se pudo actualizar el estado', 'error');
+  });
+}
 // peticion al backend eliminar datos de tabla existentes  
   const deleteOrdenes = (val) => {  
       Swal.fire({
@@ -189,6 +204,14 @@ const ocultarOrdenes = () =>{
                     }}
                   type="text" className="form-control" placeholder='ingresa nombre' value={nombre} aria-label="Username" aria-describedby="basic-addon1"/>
               </div>  
+              <div className="input-group input-group-sm mb-3">  
+                    <span className="input-group-text">Estado:</span>  
+                    <select value={estado} onChange={(event) => setEstado(event.target.value)} className="form-select">  
+                        <option value="pendiente">Pendiente</option>  
+                        <option value="completada">Completada</option>  
+                        <option value="cancelada">Cancelada</option>  
+                    </select>  
+              </div>
               {
                 editar?
                     <div>
