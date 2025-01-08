@@ -209,7 +209,7 @@ const ocultarOrdenes = () =>{
                     <select value={estado} onChange={(event) => setEstado(event.target.value)} className="form-select">  
                         <option value="pendiente">Pendiente</option>  
                         <option value="completada">Completada</option>  
-                        <option value="cancelada">Cancelada</option>  
+                        <option value="cancelada">Cancelada</option>
                     </select>  
               </div>
               {
