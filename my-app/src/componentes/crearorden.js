@@ -75,17 +75,17 @@ function Crearorden() {
   };
 
 // cambio de estado 
-const cambiarEstado = (id, nuevoEstado) => {
-  Axios(`http://localhost:3001/cambiar_estado/${id}`, {estado: nuevoEstado})
-  .then(() =>{
-    getOrdenes(); // llmada para actualoizar la lista de ordenes 
-    Swal.fire('Estado actualizado', '', 'success');
-  })
-  .catch(err => {
-    console.log(err);
-    Swal.fire('Error', 'No se pudo actualizar el estado', 'error');
-  });
-}
+// const cambiarEstado = (id, nuevoEstado) => {
+//   Axios(`http://localhost:3001/cambiar_estado/${id}`, {estado: nuevoEstado})
+//   .then(() =>{
+//     getOrdenes(); // llmada para actualoizar la lista de ordenes 
+//     Swal.fire('Estado actualizado', '', 'success');
+//   })
+//   .catch(err => {
+//     console.log(err);
+//     Swal.fire('Error', 'No se pudo actualizar el estado', 'error');
+//   });
+// }
 // peticion al backend eliminar datos de tabla existentes  
   const deleteOrdenes = (val) => {  
       Swal.fire({
