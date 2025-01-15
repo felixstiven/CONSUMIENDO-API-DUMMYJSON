@@ -48,7 +48,7 @@ app.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'El nombre de usuario ya está en uso'})
           }
       }
-   
+
       // Encriptar la contraseña  si no hay usuarios o email iguales
       bcrypt.hash(password, 10, (err, hashedPassword) => {  
         if (err) {  

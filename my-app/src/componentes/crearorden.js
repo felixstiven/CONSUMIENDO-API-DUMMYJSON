@@ -13,13 +13,12 @@ function Crearorden() {
   const [cliente, setcliente] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [nombre, setNombre] = useState();
-  const [estado, setEstado] = useState("");
   const [editar, setEditar] = useState(false);
   const [id, setId] = useState();
   
   const [ordenesList,setordenes] = useState([]);
   
-// peticion  enviar al backend guardar datos
+  // peticion  enviar al backend guardar,agregar datos
   const add = () => {
     Axios.post("http://localhost:3001/create", { // metodo utilzado en el back
       orden,
@@ -27,7 +26,6 @@ function Crearorden() {
       cliente,
       descripcion,
       nombre,
-      estado,
     }).then(()=>{ //luego de que se envie la peticion
       limpiarCampos();
       Swal.fire({
@@ -46,7 +44,7 @@ function Crearorden() {
     })
   }
 
-// peticion al backen actualizacion de datos existentes  
+  // peticion al backen actualizacion de datos existentes  
   const update = () => {
     Axios.put("http://localhost:3001/update", { // metodo utilzado en el back
       id,
@@ -55,7 +53,6 @@ function Crearorden() {
       cliente,
       descripcion,
       nombre,
-      estado,
     }).then(()=>{ //luego de que se envie la peticion
       getOrdenes();
       limpiarCampos();
@@ -75,52 +72,40 @@ function Crearorden() {
     })
   };
 
-// cambio de estado 
-// const cambiarEstado = (id, nuevoEstado) => {
-//   Axios(`http://localhost:3001/cambiar_estado/${id}`, {estado: nuevoEstado})
-//   .then(() =>{
-//     getOrdenes(); // llmada para actualoizar la lista de ordenes 
-//     Swal.fire('Estado actualizado', '', 'success');
-//   })
-//   .catch(err => {
-//     console.log(err);
-//     Swal.fire('Error', 'No se pudo actualizar el estado', 'error');
-//   });
-// }
-// peticion al backend eliminar datos de tabla existentes  
+  // peticion al backend eliminar datos de tabla existentes  
   const deleteOrdenes = (val) => {  
-      Swal.fire({
-        title: "Eliminar Orden?",
-        html: "<i> ¿Estas seguro de eliminar la orden <strong>"+val.orden+"</strong>?</i>",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Axios.delete(`http://localhost:3001/delete/${val.id}`).then(()=>{ //luego de que se envie la peticion
-            getOrdenes();
-            limpiarCampos();
-            Swal.fire({
-              title: "Eliminado",
-              text: `${val.orden} fue eliminado`,
-              icon: "success",
-              timer : 3000
-            });
-          }).catch(function(err){
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "No se logro eliminar el empleado!",
-              footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
-            });
-          })
-        }
-      })
+    Swal.fire({
+      title: "Eliminar Orden?",
+      html: "<i> ¿Estas seguro de eliminar la orden <strong>"+val.orden+"</strong>?</i>",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Axios.delete(`http://localhost:3001/delete/${val.id}`).then(()=>{ //luego de que se envie la peticion
+          getOrdenes();
+          limpiarCampos();
+          Swal.fire({
+            title: "Eliminado",
+            text: `${val.orden} fue eliminado`,
+            icon: "success",
+            timer : 3000
+          });
+        }).catch(function(err){
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se logro eliminar el empleado!",
+            footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
+          });
+        })
+      }
+    })
   }
   
-// funcion de limpiar campos tabla  depues de una peticion 
+  // funcion de limpiar campos tabla  despues de una peticion 
   const limpiarCampos = () => {
     setOrden("");
     setContrato("");
@@ -131,72 +116,74 @@ function Crearorden() {
     setEditar(false);
     
   }
-  
-// funcion editar datos tabla existentes  
+
+  // funcion para ocultar lista de datos en tabla  
+  const ocultarOrdenes = () =>{
+    setordenes([])
+  }
+    
+  // funcion editar datos tabla existentes  
   const editarOrden = (val) =>{
-    setEditar(true);
-
-    setOrden(val.orden);
-    setContrato(val.contrato);
-    setcliente(val.cliente);
-    setDescripcion(val.descripcion);
-    setNombre(val.nombre);
-    setId(val.id);
+      setEditar(true);
+  
+      setOrden(val.orden);
+      setContrato(val.contrato);
+      setcliente(val.cliente);
+      setDescripcion(val.descripcion);
+      setNombre(val.nombre);
+      setId(val.id);
   }
-
-// funcion para ocultar lista de datos en tabla  
-const ocultarOrdenes = () =>{
-  setordenes([])
-}
-
-// peticion al backend para obtener todos los datos guardados en la base
+  
+  // peticion al backend para obtener todos los datos guardados en la base
   const getOrdenes = () => {
-    Axios.get("http://localhost:3001/ordenes").then((response)=>{
-      setordenes(response.data);
-    });
+      Axios.get("http://localhost:3001/ordenes").then((response)=>{
+        setordenes(response.data);
+      });
   }  
-
-  // metodo para orden en pendiente 
+  
+  // metodo para cambiar estado de ordenes
   const cambiarEstado = async (id, nuevoEstado) => {
-    
-    Swal.fire({
-      title: `Poner estado de orden a ${nuevoEstado}`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Cambiar Estado"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Axios.put(`http://localhost:3001/pendiente/${id}`,{
-          estado: nuevoEstado
-        }).then(()=>{
-         //luego de que se envie la peticion
-          Swal.fire({
-            title: "Estado Cambiado a Pendiente",
-            text: `Orden actualizada a ${nuevoEstado}`,
-            icon: "success",
-            timer : 3000
+      
+      Swal.fire({
+        title: `Poner estado de orden a ${nuevoEstado}`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Cambiar Estado"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Axios.put(`http://localhost:3001/pendiente/${id}`,{
+            estado: nuevoEstado
+          }).then(()=>{
+           //luego de que se envie la peticion
+            Swal.fire({
+              title: "Estado Cambiado a Pendiente",
+              text: `Orden actualizada a ${nuevoEstado}`,
+              icon: "success",
+              timer : 3000
+            })
+          }).catch(function(err){
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "No se logro Cambiar a Estado Pendiente!",
+              footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
+            });
           })
-        }).catch(function(err){
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "No se logro Cambiar a Estado Pendiente!",
-            footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
-          });
-        })
-      }
-    })
-    
+        }
+      })
+      
   }
 
-  // funciones para cambiar el esatdo 
+  // funciones para cambiar el estado 
   const pendienteOrden = (val) => cambiarEstado(val.id, "Pendiente");
   const pagadoOrden = (val) => cambiarEstado(val.id, "Pago");
   const canceladoOrden = (val) => cambiarEstado(val.id, "Cancelado");
   
 
+
+  // renderizado
     return (
       <div className="container">
       
@@ -245,20 +232,12 @@ const ocultarOrdenes = () =>{
                     }}
                   type="text" className="form-control" placeholder='ingresa nombre' value={nombre} aria-label="Username" aria-describedby="basic-addon1"/>
               </div>  
-              <div className="input-group input-group-sm mb-3">  
-                    <span className="input-group-text">Estado:</span>  
-                    <select value={estado} onChange={(event) => setEstado(event.target.value)} className="form-select">  
-                        <option value="pendiente">Pendiente</option>  
-                        <option value="completada">Completada</option>  
-                        <option value="cancelada">Cancelada</option>
-                    </select>  
-              </div> 
-               { editar?
-                    <div>
-                      <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
-                      <button  className="btn btn-warning m-2" onClick={limpiarCampos}>Cancelar</button>
-                    </div>  
-                      :<button  className="btn btn-primary" onClick={add}>Registrar</button>
+              { editar?
+                  <div>
+                    <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
+                    <button  className="btn btn-warning m-2" onClick={limpiarCampos}>Cancelar</button>
+                  </div>  
+                    :<button  className="btn btn-primary" onClick={add}>Registrar</button>
               }
             </div>
           </div>
@@ -300,24 +279,25 @@ const ocultarOrdenes = () =>{
                                   </div>
                                 </td>
                                 <td>
-                                  <div className=" btn-group" role="group" aria-label="Basic mixed styles example" value={estado}>
+                                  <div className=" btn-group" role="group" aria-label="Basic mixed styles example">
                                     <button type="button" className="btn btn-secondary" 
-                                    onClick={() =>{
-                                      pendienteOrden(val);
-                                    }}>
+                                        onClick={() =>{
+                                          pendienteOrden(val);
+                                        }}
+                                    >
                                       Pendiente
                                     </button>
                                     <button type="button" className="btn btn-success"
-                                       onClick={() =>{
-                                        pagadoOrden(val);
-                                      }}
+                                        onClick={() =>{
+                                          pagadoOrden(val);
+                                        }}
                                     >
                                       Pagado
                                     </button>
                                     <button type="button" className="btn btn-danger"
-                                      onClick={() =>{
-                                        canceladoOrden(val);
-                                      }}
+                                        onClick={() =>{
+                                          canceladoOrden(val);
+                                        }}
                                     >
                                       Rechasado
                                     </button>
