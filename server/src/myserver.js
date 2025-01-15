@@ -115,8 +115,9 @@ app.post('/create', (req, res) => {
   const cliente = req.body.cliente
   const descripcion = req.body.descripcion
   const nombre = req.body.nombre
+  const estado = req.body.estado
 
-  db.query('INSERT INTO materiales(orden, contrato, cliente, descripcion, nombre) VALUES(?, ?, ?, ?, ?)', [orden, contrato, cliente, descripcion, nombre],
+  db.query('INSERT INTO materiales(orden, contrato, cliente, descripcion, nombre, estado) VALUES(?, ?, ?, ?, ?, ?)', [orden, contrato, cliente, descripcion, nombre, estado],
     (err, result) => {
       if (err) {
         console.log(err)
@@ -161,20 +162,23 @@ app.put('/update', (req, res) => {
 })
 
 //peticion cambio de estado en las ordenes
-app.post('/cambiar_estado/:id', (req, res) => {
+app.put('/pendiente/:id', (req, res) => {
   
   const orderId = req.params.id;
-  const {estado} = req.body;
+  const estado = req.body.estado;
 
-  db.query('UPDATE materiales SET estado = ? WHERE id=?', [estado,orderId], (err,results) =>{
+  db.query('UPDATE materiales SET estado=?  WHERE id=?', [estado, orderId], (err,results) =>{
     if(err){
+      console.log('error al actualizar el estado')
       return res.status(500).send(err)
     }else{
       res.send(results)
     }
   })
 
-})
+});
+
+
 
 // Obetener ordenes filtradas por estado
 app.get('/ordenes/:estado?', (req, result) => {

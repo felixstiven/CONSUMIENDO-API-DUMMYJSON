@@ -4,6 +4,7 @@ import Axios from "axios"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2'; 
 import {BackButton} from './hook';
+import './styleCrearorden.css';
 
 function Crearorden() {
 
@@ -12,7 +13,7 @@ function Crearorden() {
   const [cliente, setcliente] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [nombre, setNombre] = useState();
-  const [estado, setEstado] = useState("pendiente");
+  const [estado, setEstado] = useState("");
   const [editar, setEditar] = useState(false);
   const [id, setId] = useState();
   
@@ -154,6 +155,46 @@ const ocultarOrdenes = () =>{
       setordenes(response.data);
     });
   }  
+
+  // metodo para orden en pendiente 
+  const cambiarEstado = async (id, nuevoEstado) => {
+    
+    Swal.fire({
+      title: `Poner estado de orden a ${nuevoEstado}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Cambiar Estado"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Axios.put(`http://localhost:3001/pendiente/${id}`,{
+          estado: nuevoEstado
+        }).then(()=>{
+         //luego de que se envie la peticion
+          Swal.fire({
+            title: "Estado Cambiado a Pendiente",
+            text: `Orden actualizada a ${nuevoEstado}`,
+            icon: "success",
+            timer : 3000
+          })
+        }).catch(function(err){
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se logro Cambiar a Estado Pendiente!",
+            footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
+          });
+        })
+      }
+    })
+    
+  }
+
+  // funciones para cambiar el esatdo 
+  const pendienteOrden = (val) => cambiarEstado(val.id, "Pendiente");
+  const pagadoOrden = (val) => cambiarEstado(val.id, "Pago");
+  const canceladoOrden = (val) => cambiarEstado(val.id, "Cancelado");
   
 
     return (
@@ -211,9 +252,8 @@ const ocultarOrdenes = () =>{
                         <option value="completada">Completada</option>  
                         <option value="cancelada">Cancelada</option>
                     </select>  
-              </div>
-              {
-                editar?
+              </div> 
+               { editar?
                     <div>
                       <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>
                       <button  className="btn btn-warning m-2" onClick={limpiarCampos}>Cancelar</button>
@@ -259,7 +299,30 @@ const ocultarOrdenes = () =>{
                                     }} className="btn btn-warning">Eliminar</button>
                                   </div>
                                 </td>
-                                <td>{val.estado}</td>
+                                <td>
+                                  <div className=" btn-group" role="group" aria-label="Basic mixed styles example" value={estado}>
+                                    <button type="button" className="btn btn-secondary" 
+                                    onClick={() =>{
+                                      pendienteOrden(val);
+                                    }}>
+                                      Pendiente
+                                    </button>
+                                    <button type="button" className="btn btn-success"
+                                       onClick={() =>{
+                                        pagadoOrden(val);
+                                      }}
+                                    >
+                                      Pagado
+                                    </button>
+                                    <button type="button" className="btn btn-danger"
+                                      onClick={() =>{
+                                        canceladoOrden(val);
+                                      }}
+                                    >
+                                      Rechasado
+                                    </button>
+                                  </div>
+                                </td>
                             </tr>         
                   })
                 }
