@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import  Axios  from 'axios';
 import Swal from 'sweetalert2';
-import { useNavigate} from 'react-router-dom';
+import './styleauthen.css'
+import { useNavigate, Link} from 'react-router-dom';
 
 function Login (){
 
@@ -44,34 +45,44 @@ function Login (){
     }
 
     return (
-        <Form className='container-2'>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                    type="email" 
-                    placeholder="Enter email" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    
-                />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control 
-                    type="password" 
-                    placeholder="Password" 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)} 
-                />
-            </Form.Group>
-            <Button 
-                variant="primary" 
-                type="submit"
-                onClick={submit}
-            >
-                iniciar sesion
-            </Button>
-        </Form>
+        <>
+            <div>
+            <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+            </div>
+            <Form className='container-2'>
+                <h1>Login</h1>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                        type="email" 
+                        placeholder="Enter email" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label className='form-label'>Password</Form.Label>
+                    <Form.Control 
+                        className='form-control'
+                        type="password" 
+                        placeholder="Password" 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)} 
+                    />
+                </Form.Group>
+                <Button className='Button'
+                    variant="primary" 
+                    type="submit"
+                    onClick={submit}
+                >
+                    iniciar sesion
+                </Button>
+                <Link to='/register' className='Link'>
+                        <Button className='Button' >Registrase</Button>
+                </Link>
+            </Form>
+        </>
     )
 }
 

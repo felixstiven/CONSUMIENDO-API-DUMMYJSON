@@ -1,68 +1,77 @@
-body{
-    background-color: #f4f7fa;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-.container-2 {
-    max-width: 400px;
-    background-color: rgb(161, 201, 230);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 50px auto;
-}
 
-.row{
-    margin-bottom: 15px;
-}
 
-label{
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: block;
-    color: #333;
-}
+body {  
+    background-color: #1a1a2e; /* Fondo oscuro */  
+    color: #ffffff; /* Color del texto */  
+    font-family: Arial, sans-serif;  
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    height: 100vh;  
+}  
 
-input[type="text"],
-input[type="password"]{
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
+.container-2 {  
+    background-color: #16202c; /* Fondo del contenedor */  
+    border-radius: 15px;  
+    padding: 20px;  
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);  
+    width: 400px; 
+    height: 400px; 
+    z-index: 99;
+}  
 
-input[type="text"]:focus,
-input[type="password"]:focus{
-    border-color: #007bff;
-    outline: none;
-}
+.mb-3 {  
+    margin-bottom: 1rem;  
+}  
 
-.btn{
-    max-width: 60%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+.form-label {  
+    font-size: 1.2rem;  
+    margin-bottom: 0.5rem;  
+}  
 
-.Button {
-    width: 150px;
+.form-control {  
+    background-color: #f0f0f0; /* Color de fondo de los input */  
+    border: 1px solid #ccc; /* Bordes */  
+    border-radius: 5px;  
+    padding: 10px;  
+    transition: border-color 0.3s; 
+    width: 270px; 
+}  
+
+.form-control:focus {  
+    border-color: #3ab0ff; /* Color al enfocar */  
+    outline: none; /* Sin contorno */  
+}  
+
+.btn-primary {  
+    background-color: #3ab0ff; /* Color del botón */  
+    border: none;  
+    border-radius: 5px;  
+    padding: 10px;  
+    width: 100%;  
+    font-size: 1.1rem;  
+    transition: background-color 0.3s;  
+}  
+
+.btn-primary:hover {  
+    background-color: #007bb5; /* Color del botón al pasar el ratón */  
+}  
+
+.footer-links {  
+    display: flex;  
+    justify-content: space-between;  
+    margin-top: 15px;  
+    font-size: 0.9rem;  
+} 
+
+.Button{
     margin-top: 5px;
-    padding: 10px;
-    align-items: center;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 270px;
 }
 
-.Button:hover{
-    background-color: #008fb3;
+.illustration {
+    position: absolute;
+    top: 15%;
+    right: 570px;
+    width: 20%;
 }
-

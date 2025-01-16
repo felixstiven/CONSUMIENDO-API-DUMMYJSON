@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 
 
+
 function Register (){
 
     const [username, setUsername] = useState("");
@@ -70,6 +71,7 @@ function Register (){
     return (
 
         <div className='container-2'>
+            <h1>Login</h1>
             <div className='row'>
                 <label>usario</label>
                 <input 
