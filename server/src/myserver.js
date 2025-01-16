@@ -31,7 +31,7 @@ const transporter = nodemair.createTransport({
   service:'gmail',
   auth:{
     user:'felixstiven12@gmail.com',
-    pass:'stiven3883'
+    pass:''
   }
 });
 
