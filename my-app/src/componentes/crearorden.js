@@ -13,6 +13,7 @@ function Crearorden() {
   const [cliente, setcliente] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [nombre, setNombre] = useState();
+  const [numPhone, setNumPhone] = useState("");
   const [editar, setEditar] = useState(false);
   const [id, setId] = useState();
   
@@ -26,6 +27,7 @@ function Crearorden() {
       cliente,
       descripcion,
       nombre,
+      numPhone
     }).then(()=>{ //luego de que se envie la peticion
       limpiarCampos();
       Swal.fire({
@@ -143,20 +145,19 @@ function Crearorden() {
   
 
   // peticion enviar notificaion
-  const sendNotification = async(email , phone, orderStatus) => {
-    try{
-      await Axios.post('http://localhost:3001/notify',{
-        email,
-        phone,
-        orderStatus
-      });
-    }catch (error) {
-      console.error('Error al enviar la notificacion:', error)
-    }
-  }
+  // const sendNotification = async(phone, orderStatus) => {
+  //   try{
+  //     await Axios.post('http://localhost:3001/notify',{
+  //       phone,
+  //       orderStatus
+  //     });
+  //   }catch (error) {
+  //     console.error('Error al enviar la notificacion:', error)
+  //   }
+  // }
 
   // metodo para cambiar estado de ordenes
-  const cambiarEstado = async (id, nuevoEstado) => {
+  const cambiarEstado = async (id, nuevoEstado, phone) => {
       
       Swal.fire({
         title: `Poner estado de orden a ${nuevoEstado}`,
@@ -169,14 +170,9 @@ function Crearorden() {
         if (result.isConfirmed) {  
           try {  
               await Axios.put(`http://localhost:3001/pendiente/${id}`, {  
-                  estado: nuevoEstado  
+                  estado: nuevoEstado,
+                  phone
               });  
-
-              // Enviar notificación  
-              const email = 'felixstiven12@gmail.com'; // Cambia esto por el email real  
-              const phone = '+573107729036'; // Cambia esto por el número real  
-              await sendNotification(email, phone, nuevoEstado);  
-
               Swal.fire({  
                   title: `Estado cambiado a ${nuevoEstado}`,  
                   text: `Orden actualizada a ${nuevoEstado}`,  
@@ -196,7 +192,7 @@ function Crearorden() {
   }
 
   // funciones para cambiar el estado 
-  const pendienteOrden = (val) => cambiarEstado(val.id, "Pendiente");
+  const pendienteOrden = (val) => cambiarEstado(val.id, "Pendiente", val.numphone);
   const pagadoOrden = (val) => cambiarEstado(val.id, "Pago");
   const canceladoOrden = (val) => cambiarEstado(val.id, "Cancelado");
   
@@ -252,6 +248,14 @@ function Crearorden() {
                     }}
                   type="text" className="form-control" placeholder='ingresa nombre' value={nombre} aria-label="Username" aria-describedby="basic-addon1"/>
               </div>  
+              <div className="input-group input-group-sm mb-3">
+                <span className="input-group-text" id="inputGroup-sizing-sm">Numero celular solcicitante:</span>
+                <input 
+                    onChange={(event)=> {
+                      setNumPhone(event.target.value);
+                    }}
+                  type="tel" className="form-control" placeholder='ejemplo: +573132564789' value={numPhone} aria-label="Username" aria-describedby="basic-addon1"/>
+              </div> 
               { editar?
                   <div>
                     <button  className="btn btn-info m-2" onClick={update}>Actualizar</button>

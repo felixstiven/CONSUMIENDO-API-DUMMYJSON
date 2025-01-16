@@ -5,8 +5,8 @@ const mysql = require('mysql');
 const bcrypt = require('bcrypt');// PARA ENCRIPTAR CONTRASEÑAS
 const jwt = require('jsonwebtoken');// PARA GENERAR TOKENS
 // const User = require('../models/modelUser');
-const twilio = require('twilio');
-const nodemair = require('nodemailer');
+// const twilio = require('twilio');
+// const nodemair = require('nodemailer');
 
 
 const PORT = 3001;
@@ -26,47 +26,33 @@ const db = mysql.createConnection({
   database: 'gestor_obras'
 });
 
-// configuracion Nodemair 
-const transporter = nodemair.createTransport({
-  service:'gmail',
-  auth:{
-    user:'felixstiven12@gmail.com',
-    pass:''
-  }
-});
+// // configuracion Nodemair 
+// const transporter = nodemair.createTransport({
+//   service:'gmail',
+//   auth:{
+//     user:'felixstiven12@gmail.com',
+//     pass:''
+//   }
+// });
 
 // configuracion Twilio
-const accountSid = ''; // encentra en twilio
-const authToken = ''; // encentra en twilio
-const twilioPhoneNumber ='' // encuentra en twilio
-const client = new twilio(accountSid, authToken);
+const accountSid = 'AC7738595791718ae27f34bcd6b7cd34ae'; // encentra en twilio
+const authToken = '6bfbc0973a7d0ba3d569e5f70b8211ae'; // encentra en twilio
+const twilioPhoneNumber ='+16813956309' // encuentra en twilio
+const client = require('twilio')(accountSid, authToken);
 
 // notificacion
-app.post('/notify', async(req, res) =>{
-  const {email, phone, orderStatus} = req.body;
+// app.post('/notify', async(req, res) =>{
+//   const { phone, orderStatus} = req.body;
 
-  // neviar  correo
-  const mailOptions = {
-    from:'felixstiven12@gmail.com',
-    to: email,
-    subject: 'Actualizacion de orden',
-    text: `Tu orden ha sido actualizada a ${orderStatus}`
-  };
-
-  try{
-    await transporter.sendMail(mailOptions);
-    // enviar sms
-    await client.message.create({
-      body:`el estado de tu orden ha cambiado a: ${orderStatus}`,
-      from: twilioPhoneNumber,
-      to: phone
-    });
-    return res.status(200).send('Notificacion enviadas');
-  }catch (error){
-    console.error('Error añ enviar notificaiones:', error);
-    return res.status(500).send('Error añ enviar notificaciones');
-  }
-});
+//   // neviar  correo
+//   const clientConfig = client
+//   client.messages.create({
+//     body:`Tu orden ha cambiado de estado a: ${orderStatus}`,
+//     from: twilioPhoneNumber,
+//     to:phone
+//   }).then(message => console.log(message.sid))
+// })
 
 // peticion  registrar usuario 
 app.post('/register', async (req, res) => {  
@@ -160,9 +146,10 @@ app.post('/create', (req, res) => {
   const cliente = req.body.cliente
   const descripcion = req.body.descripcion
   const nombre = req.body.nombre
+  const numPhone = req.body.numPhone
   const estado = req.body.estado
 
-  db.query('INSERT INTO materiales(orden, contrato, cliente, descripcion, nombre, estado) VALUES(?, ?, ?, ?, ?, ?)', [orden, contrato, cliente, descripcion, nombre, estado],
+  db.query('INSERT INTO materiales(orden, contrato, cliente, descripcion, nombre, numphone, estado) VALUES(?, ?, ?, ?, ?, ?, ?)', [orden, contrato, cliente, descripcion, nombre, numPhone, estado],
     (err, result) => {
       if (err) {
         console.log(err)
@@ -207,20 +194,33 @@ app.put('/update', (req, res) => {
 })
 
 //peticion cambio de estado en las ordenes
-app.put('/pendiente/:id', (req, res) => {
-  
-  const orderId = req.params.id;
-  const estado = req.body.estado;
+// Petición cambio de estado en las órdenes  
+app.put('/pendiente/:id', async (req, res) => {  
+  const orderId = req.params.id;  
+  const estado = req.body.estado;  
+  const phone = req.body.phone; // obtener el teléfono del usuario  
 
-  db.query('UPDATE materiales SET estado=?  WHERE id=?', [estado, orderId], (err,results) =>{
-    if(err){
-      console.log('error al actualizar el estado')
-      return res.status(500).send(err)
-    }else{
-      res.send(results)
-    }
-  })
-
+  // Primero, actualiza el estado de la orden en la base de datos  
+  db.query('UPDATE materiales SET estado = ? WHERE id = ?', [estado, orderId], async (err, results) => {  
+    if (err) {  
+      console.log('Error al actualizar el estado');  
+      return res.status(500).send(err);  
+    } else {  
+      // Envía el mensaje de Twilio   
+      try {  
+        await client.messages.create({  
+          body: `Tu orden ha cambiado de estado a: ${estado}`,  
+          from: twilioPhoneNumber,  
+          to: phone  
+        });  
+        console.log(`Mensaje enviado al numero ${phone} `);  
+        res.status(200).send(results);  
+      } catch (messageError) {  
+        console.error('Error al enviar el mensaje:', messageError);  
+        res.status(500).send("Error al enviar el mensaje");  
+      }  
+    }  
+  });  
 });
 
 
