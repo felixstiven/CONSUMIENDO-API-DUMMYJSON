@@ -141,6 +141,20 @@ function Crearorden() {
       });
   }  
   
+
+  // peticion enviar notificaion
+  const sendNotification = async(email , phone, orderStatus) => {
+    try{
+      await Axios.post('http://localhost:3001/notify',{
+        email,
+        phone,
+        orderStatus
+      });
+    }catch (error) {
+      console.error('Error al enviar la notificacion:', error)
+    }
+  }
+
   // metodo para cambiar estado de ordenes
   const cambiarEstado = async (id, nuevoEstado) => {
       
@@ -151,29 +165,34 @@ function Crearorden() {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Cambiar Estado"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Axios.put(`http://localhost:3001/pendiente/${id}`,{
-            estado: nuevoEstado
-          }).then(()=>{
-           //luego de que se envie la peticion
-            Swal.fire({
-              title: "Estado Cambiado a Pendiente",
-              text: `Orden actualizada a ${nuevoEstado}`,
-              icon: "success",
-              timer : 3000
-            })
-          }).catch(function(err){
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "No se logro Cambiar a Estado Pendiente!",
-              footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
-            });
-          })
-        }
-      })
-      
+      }).then( async(result) => {
+        if (result.isConfirmed) {  
+          try {  
+              await Axios.put(`http://localhost:3001/pendiente/${id}`, {  
+                  estado: nuevoEstado  
+              });  
+
+              // Enviar notificación  
+              const email = 'felixstiven12@gmail.com'; // Cambia esto por el email real  
+              const phone = '+573107729036'; // Cambia esto por el número real  
+              await sendNotification(email, phone, nuevoEstado);  
+
+              Swal.fire({  
+                  title: `Estado cambiado a ${nuevoEstado}`,  
+                  text: `Orden actualizada a ${nuevoEstado}`,  
+                  icon: "success",  
+                  timer: 3000  
+              });  
+          } catch (error) {  
+              Swal.fire({  
+                  icon: "error",  
+                  title: "Oops...",  
+                  text: "No se logró Cambiar a Estado Pendiente!",  
+                  footer: error.message  
+              });  
+          }  
+        }  
+      })  
   }
 
   // funciones para cambiar el estado 
@@ -181,6 +200,7 @@ function Crearorden() {
   const pagadoOrden = (val) => cambiarEstado(val.id, "Pago");
   const canceladoOrden = (val) => cambiarEstado(val.id, "Cancelado");
   
+
 
 
   // renderizado

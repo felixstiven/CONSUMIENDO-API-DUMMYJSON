@@ -25,7 +25,9 @@
     "mysql": "^2.18.1",
     "node": "^23.5.0",
     "nodej": "^1.0.1",
+    "nodemailer": "^6.9.16",
     "ts-node": "^10.9.2",
+    "twilio": "^5.4.2",
     "typescript": "^5.7.2"
   },
   "devDependencies": {

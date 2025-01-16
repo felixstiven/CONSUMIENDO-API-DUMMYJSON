@@ -5,10 +5,13 @@ const mysql = require('mysql');
 const bcrypt = require('bcrypt');// PARA ENCRIPTAR CONTRASEÑAS
 const jwt = require('jsonwebtoken');// PARA GENERAR TOKENS
 // const User = require('../models/modelUser');
+const twilio = require('twilio');
+const nodemair = require('nodemailer');
 
 
 const PORT = 3001;
 const cors = require('cors');
+const { format } = require('path');
 // const { resolve } = require('path');
 // const { rejects } = require('assert');
 
@@ -21,7 +24,49 @@ const db = mysql.createConnection({
   user: 'stiven',
   password: '3883',
   database: 'gestor_obras'
-})
+});
+
+// configuracion Nodemair 
+const transporter = nodemair.createTransport({
+  service:'gmail',
+  auth:{
+    user:'felixstiven12@gmail.com',
+    pass:'stiven3883'
+  }
+});
+
+// configuracion Twilio
+const accountSid = ''; // encentra en twilio
+const authToken = ''; // encentra en twilio
+const twilioPhoneNumber ='' // encuentra en twilio
+const client = new twilio(accountSid, authToken);
+
+// notificacion
+app.post('/notify', async(req, res) =>{
+  const {email, phone, orderStatus} = req.body;
+
+  // neviar  correo
+  const mailOptions = {
+    from:'felixstiven12@gmail.com',
+    to: email,
+    subject: 'Actualizacion de orden',
+    text: `Tu orden ha sido actualizada a ${orderStatus}`
+  };
+
+  try{
+    await transporter.sendMail(mailOptions);
+    // enviar sms
+    await client.message.create({
+      body:`el estado de tu orden ha cambiado a: ${orderStatus}`,
+      from: twilioPhoneNumber,
+      to: phone
+    });
+    return res.status(200).send('Notificacion enviadas');
+  }catch (error){
+    console.error('Error añ enviar notificaiones:', error);
+    return res.status(500).send('Error añ enviar notificaciones');
+  }
+});
 
 // peticion  registrar usuario 
 app.post('/register', async (req, res) => {  
