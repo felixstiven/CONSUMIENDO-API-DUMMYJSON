@@ -1,19 +1,15 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
-// const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');// PARA ENCRIPTAR CONTRASEÑAS
 const jwt = require('jsonwebtoken');// PARA GENERAR TOKENS
-// const User = require('../models/modelUser');
-// const twilio = require('twilio');
-// const nodemair = require('nodemailer');
+
 
 
 const PORT = 3001;
 const cors = require('cors');
 const { format } = require('path');
-// const { resolve } = require('path');
-// const { rejects } = require('assert');
+
 
 app.use(cors())
 app.use(express.json())
@@ -26,14 +22,6 @@ const db = mysql.createConnection({
   database: 'gestor_obras'
 });
 
-// // configuracion Nodemair 
-// const transporter = nodemair.createTransport({
-//   service:'gmail',
-//   auth:{
-//     user:'felixstiven12@gmail.com',
-//     pass:''
-//   }
-// });
 
 // configuracion Twilio
 const accountSid = 'AC7738595791718ae27f34bcd6b7cd34ae'; // encentra en twilio
@@ -41,18 +29,7 @@ const authToken = '6bfbc0973a7d0ba3d569e5f70b8211ae'; // encentra en twilio
 const twilioPhoneNumber ='+16813956309' // encuentra en twilio
 const client = require('twilio')(accountSid, authToken);
 
-// notificacion
-// app.post('/notify', async(req, res) =>{
-//   const { phone, orderStatus} = req.body;
 
-//   // neviar  correo
-//   const clientConfig = client
-//   client.messages.create({
-//     body:`Tu orden ha cambiado de estado a: ${orderStatus}`,
-//     from: twilioPhoneNumber,
-//     to:phone
-//   }).then(message => console.log(message.sid))
-// })
 
 // peticion  registrar usuario 
 app.post('/register', async (req, res) => {  
