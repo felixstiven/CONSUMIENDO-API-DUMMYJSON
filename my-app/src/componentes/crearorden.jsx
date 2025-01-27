@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2'; 
 import {BackButton} from './hook';
 import './styleCrearorden.css';
+import ListarOrdenes from './ListarOrdenes';
 
 function Crearorden() { 
 
@@ -60,7 +61,7 @@ function Crearorden() {
       limpiarCampos();
       Swal.fire({
         title: " <h1>Actualizacion exitosa!!</h1>",
-        html: "la  <strong>"+orden+"</strong> fue actualizado correctamente",
+        html: "la orden  <strong>"+orden+"</strong> fue actualizado correctamente",
         icon: "succes",
         timer : 4000
       })
@@ -68,45 +69,12 @@ function Crearorden() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "No se logro actualizar el empleado",
+        text: "No se logro actualizar la orden",
         footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
       });
     })
   };
 
-  // peticion al backend eliminar datos de tabla existentes  
-  const deleteOrdenes = (val) => {  
-    Swal.fire({
-      title: "Eliminar Orden?",
-      html: "<i> ¿Estas seguro de eliminar la orden <strong>"+val.orden+"</strong>?</i>",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, eliminar!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Axios.delete(`http://localhost:3001/delete/${val.id}`).then(()=>{ //luego de que se envie la peticion
-          getOrdenes();
-          limpiarCampos();
-          Swal.fire({
-            title: "Eliminado",
-            text: `${val.orden} fue eliminado`,
-            icon: "success",
-            timer : 3000
-          });
-        }).catch(function(err){
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "No se logro eliminar el empleado!",
-            footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
-          });
-        })
-      }
-    })
-  }
-  
   // funcion de limpiar campos tabla  despues de una peticion 
   const limpiarCampos = () => {
     setOrden("");
@@ -136,53 +104,12 @@ function Crearorden() {
       setId(val.id);
   }
   
-  // peticion al backend para obtener todos los datos guardados en la base
+  //peticion al backend para obtener todos los datos guardados en la base
   const getOrdenes = () => {
       Axios.get("http://localhost:3001/ordenes").then((response)=>{
         setordenes(response.data);
       });
   }  
-  // peticion cambiar estado
-  const cambiarEstado = async (id, nuevoEstado, phone) => {
-      
-      Swal.fire({
-        title: `Poner estado de orden a ${nuevoEstado}`,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Cambiar Estado"
-      }).then( async(result) => {
-        if (result.isConfirmed) {  
-          try {  
-              await Axios.put(`http://localhost:3001/pendiente/${id}`, {  
-                  estado: nuevoEstado,
-                  phone
-              });  
-              Swal.fire({  
-                  title: `Estado cambiado a ${nuevoEstado}`,  
-                  text: `Orden actualizada a ${nuevoEstado}`,  
-                  icon: "success",  
-                  timer: 3000  
-              });  
-          } catch (error) {  
-              Swal.fire({  
-                  icon: "error",  
-                  title: "Oops...",  
-                  text: "No se logró Cambiar a Estado Pendiente!",  
-                  footer: error.message  
-              });  
-          }  
-        }  
-      })  
-  }
-
-  // funciones para cambiar el estado 
-  const pendienteOrden = (val) => cambiarEstado(val.id, "Pendiente", val.numphone);
-  const pagadoOrden = (val) => cambiarEstado(val.id, "Pago", val.numphone);
-  const canceladoOrden = (val) => cambiarEstado(val.id, "Cancelado", val.numphone);
-  
-
 
 
   // renderizado
@@ -256,72 +183,8 @@ function Crearorden() {
                 <button className='btn btn-success btn-2' onClick={ocultarOrdenes}>Ocultar</button> 
             </div>
           </div>
-          <section className='section-container'>
-              <table className="table table-striped table-bordered ">
-                <thead>
-                  <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Orden</th>
-                      <th scope="col">Contrato</th>
-                      <th scope="col">Cliente</th>
-                      <th scope="col">Descripcion</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Acciones</th>
-                      <th scope="col">Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                      {
-                        ordenesList.map((val, key)=>{
-                          return  <tr key={val.id}>
-                                    <th >{val.id}</th>
-                                    <td>{val.orden}</td>
-                                    <td>{val.contrato}</td>
-                                    <td>{val.cliente}</td>
-                                    <td>{val.descripcion}</td>
-                                    <td>{val.nombre}</td>
-                                    <td>
-                                      <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <button type="button" className="btn btn-info"
-                                          onClick={()=>{
-                                              editarOrden(val);
-                                          }}
-                                        >Editar</button>
-                                        <button type="button" onClick={()=>{
-                                          deleteOrdenes(val);
-                                        }} className="btn btn-warning">Eliminar</button>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div className=" btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <button type="button" className="btn btn-secondary" 
-                                            onClick={() =>{
-                                              pendienteOrden(val);
-                                            }}
-                                        >
-                                          Pendiente
-                                        </button>
-                                        <button type="button" className="btn btn-success"
-                                            onClick={() =>{
-                                              pagadoOrden(val);
-                                            }}
-                                        >
-                                          Pagado
-                                        </button>
-                                        <button type="button" className="btn btn-danger"
-                                            onClick={() =>{
-                                              canceladoOrden(val);
-                                            }}
-                                        >
-                                          Rechasado
-                                        </button>
-                                      </div>
-                                    </td>
-                                  </tr>
-                        })
-                      }
-                  </tbody>
-              </table>
+          <section className='table-'>
+             <ListarOrdenes ordenesList={ordenesList} setOrdenes={setOrden}  editOrder={editarOrden} setEditing={setEditar}/>
           </section> 
           <div>
             <BackButton/>

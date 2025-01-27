@@ -173,20 +173,35 @@ app.put('/update', (req, res) => {
 //peticion cambio de estado en las ordenes
 // Petición cambio de estado en las órdenes  
 app.put('/pendiente/:id', async (req, res) => {  
-  const orderId = req.params.id;  
+  const orderId = req.params.id; 
+  // const orden = req.params.orden; 
   const estado = req.body.estado;  
   const phone = req.body.phone; // obtener el teléfono del usuario  
 
   // Primero, actualiza el estado de la orden en la base de datos  
-  db.query('UPDATE materiales SET estado = ? WHERE id = ?', [estado, orderId], async (err, results) => {  
+  db.query('UPDATE materiales SET estado = ? WHERE id = ? ', [estado, orderId], async (err, results) => {  
     if (err) {  
       console.log('Error al actualizar el estado');  
       return res.status(500).send(err);  
-    } else {  
+    }  
+
+    // obtener el numero de orden con el Id 
+    db.query('SELECT orden FROM materiales WHERE id = ?', [orderId], async (err, results) => {
+      if (err){
+        console.log('Error al obtener el numero de orden');
+        return res.status(500).send(err);
+      }
+      if(results.length === 0){
+        return res.status(404).send('No se encontro la orden');
+      }
+
+      const numeroOrden = results[0].numeroOrden;   // penciente enviar numero de orden 
+
+      // Enviar un mensaje de texto al usuario
       // Envía el mensaje de Twilio   
       try {  
         await client.messages.create({  
-          body: `Tu orden ha cambiado de estado a: ${estado}`,  
+          body: `Tu orden ${numeroOrden} ha cambiado de estado a: ${estado}`,  
           from: twilioPhoneNumber,  
           to: phone  
         });  
@@ -196,7 +211,7 @@ app.put('/pendiente/:id', async (req, res) => {
         console.error('Error al enviar el mensaje:', messageError);  
         res.status(500).send("Error al enviar el mensaje");  
       }  
-    }  
+    });
   });  
 });
 
