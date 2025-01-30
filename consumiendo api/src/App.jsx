@@ -1,6 +1,6 @@
-import {Header}  from './components/Footer/Header/Header'
+import {Header}  from './components/Header/Header'
 import Footer from './components/Footer/Footer'
-import {Section} from './components/Footer/Section/Section'
+import {Section} from './components/Section/Section'
 import './App.css'
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <>
       <Header title='titulo de la app' show={false}/>
       <Section/>
-      <Footer/>
+      {/* //<Footer/> */}
     </>
   )
 }
