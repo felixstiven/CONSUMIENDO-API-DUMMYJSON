@@ -21,6 +21,16 @@ section {
         border-radius: 50%;
         background-color: white;
     }
+    & .email{
+        background-color: rgb(147, 168, 168);
+        font-weight: bold;
+        font-size: 12px;
+        width: 250px;
+        height: 15px;
+        border-radius: 8px;
+        justify-content: center;
+        
+    }
     & button{
         padding: 8px;
         border: none;
