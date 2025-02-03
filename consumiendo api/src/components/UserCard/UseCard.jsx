@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axio'
+
 
 export const UseCard = ({user}) => {
 
@@ -9,6 +11,18 @@ export const UseCard = ({user}) => {
 
   const handleClick = () => {
     setIsContacted(!isContacted)
+    
+  }
+  const llamarApi= () => {
+      
+        axios.get(`http://localhost:3000/api`)
+        .then(res => res.json())
+        .then(data=>{
+          console.log(data)
+          
+        })
+     
+
     
   }
 
@@ -23,6 +37,7 @@ export const UseCard = ({user}) => {
             isContacted ? `${phone}` : 'Contactar'
           }
         </button>
+        <button onClick={llamarApi}> llamr al api </button>
     </div>
   )
 }
