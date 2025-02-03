@@ -5,7 +5,7 @@ export const UseCard = ({user}) => {
   const [isContacted, setIsContacted] = useState(false)
   //const [tecnologis, setTecnologis] = useState(['React', 'Node', 'MongoDB'])
 
-  const {id, firstName, email, image} = user
+  const {id, firstName, email, image, phone} = user
 
   const handleClick = () => {
     setIsContacted(!isContacted)
@@ -20,7 +20,7 @@ export const UseCard = ({user}) => {
         <p className='email'>{email}</p>
         <button  id={id} onClick={() => {handleClick()}}>
           {
-            isContacted ? '3107729036' : 'Contactar'
+            isContacted ? `${phone}` : 'Contactar'
           }
         </button>
     </div>
