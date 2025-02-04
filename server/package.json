@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "type": "module",
   "name": "server",
   "version": "1.0.0",
@@ -15,5 +16,23 @@
     "express": "^4.21.2",
     "mongoose": "^8.9.7",
     "nodemon": "^3.1.9"
+=======
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node index.js"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+>>>>>>> 81f84038655cb2ca73e8973f4a1fa26cdf4364bd
   }
 }

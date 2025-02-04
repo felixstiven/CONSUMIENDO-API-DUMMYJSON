@@ -7,25 +7,30 @@ import { useState, useEffect } from 'react';
 
 export const Section = () => {
 
-  const [count, setCount] = useState(0)
-  const [like, setLike] = useState(0)
-  const [users, setUsers] = useState([])
+  const [count, setCount] = useState(1)
+  const [user, setUser] = useState({})
 
   useEffect(()=>{
-    fetch('https://dummyjson.com/users')
+    fetch(`https://dummyjson.com/users/${count}`)
     .then(res => res.json())
     .then(data=>{
-      console.log(data.users)
-      setUsers(data.users)
+      console.log(data)
+      setUser(data)
     })
-  },[])
+  },[count])
 
 
   const handleClick = () =>{
-    setCount( count + 1)
+    
+    setCount( count +1 )
+
   }
-  const handleLike = () =>{
-    setLike( like + 1)
+  const handleAnterior = () =>{
+    if (count > 1 ){
+      setCount( count - 1)
+    } else{
+      alert('no se puede dar para atras')
+    }
   }
 
 
@@ -33,18 +38,12 @@ export const Section = () => {
 
   return (
     <>
-      <h2>{count}</h2>
-      <button onClick={handleClick}>contador</button>
-      <h2>{like}</h2>
-      <button onClick={handleLike}>link</button>
+      <button onClick={handleClick}>siguiente</button>
+      <button onClick={handleAnterior}>anterior</button>
       <section>
-        {
-          users.map((user)  => {
-              return (
+        
                 <UseCard key={user.id} user={user}/>
-              )
-          })
-        }
+        
       </section>
     </>
   )
