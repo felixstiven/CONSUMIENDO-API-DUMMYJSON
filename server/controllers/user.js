@@ -16,7 +16,9 @@ class usersController{
 
     async update(req, res){
         try{
-            res.status(200).json({message: 'User updated'});
+            const {id} = req.params;
+            const data = await userModelo.update(id);
+            res.status(200).json(data);
         }catch(error){
             res.status(500).json({message: 'Error updating user', error});  
         }
@@ -24,7 +26,9 @@ class usersController{
 
     async delete(req, res){
         try{
-            res.status(200).json({message: 'User deleted'});
+            const {id} = req.params;
+            const data = await userModelo.delete(id);
+            res.status(200).json(data);
         }catch(error){
             res.status(500).json({message: 'Error deleting user', error});
         }
@@ -32,7 +36,8 @@ class usersController{
 
     async getAll(req, res){
         try{
-            res.status(200).json({message: 'Users found'});
+            const data = await userModelo.getAll();
+            res.status(200).json(data);
         }catch(error){
             res.status(500).json({message: 'Error finding users', error});
         }
@@ -40,7 +45,9 @@ class usersController{
 
     async getOne(req, res){
         try{
-            res.status(200).json({message: 'User found'});
+            const id = req.params.id;
+            const data = await userModelo.getOne(id);
+            res.status(200).json(data);
         }catch(error){
             res.status(500).json({message: 'Error finding user', error});
         }
