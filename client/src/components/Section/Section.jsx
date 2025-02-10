@@ -1,7 +1,8 @@
 
 import './Section.css';
 import UseCard from '../UserCard/UseCard';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -38,8 +39,12 @@ export const Section = () => {
 
   return (
     <>
-      <button onClick={handleClick}>siguiente</button>
-      <button onClick={handleAnterior}>anterior</button>
+      <div>
+         <button onClick={handleClick}>siguiente</button>
+         <button onClick={handleAnterior}>anterior</button>  
+         <Link to="/productos"></Link>
+         
+      </div>
       <section>
         
                 <UseCard key={user.id} user={user}/>
