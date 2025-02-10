@@ -28,11 +28,11 @@ export const UseCard = ({ user}) => {
 }
 UseCard.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    firstName: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    firstName: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+    image: PropTypes.string,
   }).isRequired,
 };
 
