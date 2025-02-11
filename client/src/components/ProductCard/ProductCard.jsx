@@ -1,3 +1,8 @@
+
+
+
+
+
 export const ProductosCard = ({ contenido }) => {
     const { id, description, price, images } = contenido;
 
@@ -5,8 +10,10 @@ export const ProductosCard = ({ contenido }) => {
         <>
           <div className='card' id={id}>
             <img className="image" src={images[0]} alt={description}/>
-            <h2 className='name'>{description}</h2>
-            <p className='price'>{price}</p>
+            <h2 className='description'>{description}</h2>
+            <div className="price-container">
+            <p className='price'>{`${price} USD`}</p>
+            </div>
          </div>
         </>
     )

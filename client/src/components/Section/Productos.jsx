@@ -1,4 +1,4 @@
-import './Section.css';
+import './Productos.css';
 import { useState, useEffect } from 'react';
 import { Header } from '../Header/Header';
 import { ProductosCard } from '../ProductCard/ProductCard';
@@ -21,7 +21,7 @@ export const Productos = () => {
             <Header title="Productos"/>
             {
                 productos && productos.map((producto)=>{
-                    return <ProductosCard key={producto.id} contenido={producto}/>
+                    return <section><ProductosCard key={producto.id} contenido={producto}/></section>
                     
                 })
            }
