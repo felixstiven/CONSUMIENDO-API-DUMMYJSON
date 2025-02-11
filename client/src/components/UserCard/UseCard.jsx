@@ -1,12 +1,12 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
 
-export const UseCard = ({ user}) => {
+export const UseCard = ({ contenido }) => {
 
   const [isContacted, setIsContacted] = useState(false)
   // const [tecnologis, setTecnologis] = useState(['React', 'Node', 'MongoDB'])
 
-  const {id, firstName, phone, email, image} = user
+  const {id, firstName, phone, email, image} = contenido
   const handleClick = () => {
     setIsContacted(true)
 }
@@ -29,11 +29,11 @@ export const UseCard = ({ user}) => {
 UseCard.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number,
-    firstName: PropTypes.string,
-    email: PropTypes.string,
-    phone: PropTypes.string,
-    image: PropTypes.string,
-  }).isRequired,
+    firstName: PropTypes,
+    email: PropTypes,
+    phone: PropTypes,
+    image: PropTypes,
+  })
 };
 
 export default UseCard;
