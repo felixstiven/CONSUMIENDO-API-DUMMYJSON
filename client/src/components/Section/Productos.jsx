@@ -5,8 +5,7 @@ import { ProductosCard } from '../ProductCard/ProductCard';
 
 
 export const Productos = () => {
-    const {count, setCount} = useState(1);
-    const {productos, setProductos} =  useState([]);
+    const [productos, setProductos] = useState([]);
 
     useEffect(()=>{
         fetch(`https://dummyjson.com/products`)

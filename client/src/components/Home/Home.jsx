@@ -7,7 +7,6 @@ function Home() {
     <>
         <Header title="titulo de la app"  />
         <Section />
-        <NavBar/>
     </>
   );
 }
