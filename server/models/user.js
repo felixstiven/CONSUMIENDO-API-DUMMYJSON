@@ -13,9 +13,14 @@ class userModelo{
         return await colUser.find({}).toArray();
     }
 
+
     async getOne(id){
         const colUser = dbClient.db.collection('test prueba');
         return await colUser.findOne({ _id: new ObjectId(id)});
+    }
+    async getFilter(nombre){
+        const colUser = dbClient.db.collection('test prueba');
+        return await colUser.find({nombre:{$regex: new RegExp(nombre, 'i') }}).toArray();
     }
 
     async update(id, data){

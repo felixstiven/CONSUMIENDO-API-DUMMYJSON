@@ -8,6 +8,8 @@ route.get('/obtener', usersController.getAll);
 
 route.get('/obtener/:id', usersController.getOne);
 
+route.get('/nombre/:nombre', usersController.getFilter)
+
 route.put('/actualizar/:id', usersController.update);
 
 route.delete('/eliminar/:id', usersController.delete);
