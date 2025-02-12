@@ -5,10 +5,10 @@ export const NavBar = () => {
     return (
         <nav>
             <ul>
-                <li>
+                <li style={{listStyle: 'none'}}>
                     <NavLink to="/">Inicio</NavLink>
                 </li>
-                <li>
+                <li style={{listStyle: 'none'}}>
                     <NavLink to="/productos">Productos</NavLink>
                 </li>
             </ul>

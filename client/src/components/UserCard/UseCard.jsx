@@ -13,10 +13,10 @@ export const UseCard = ({ contenido }) => {
 
 
   return (
-    <div className='card' >
+    <div className='card-section' >
         <img  className="image" src={image} alt={firstName}/>
         <h2 className='name'>{firstName}</h2>
-        <p className='description'>{email}</p>
+        <p className='email'>{email}</p>
         <p className='description'>{phone}</p>
         <button  id={id} onClick={() => {handleClick()}}>
           {

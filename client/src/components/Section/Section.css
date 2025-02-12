@@ -5,10 +5,10 @@ section {
     gap: 20px;
     justify-content: center;
 }
-.card{
+.card-section{
     background-color: bisque;
     box-shadow:  0px 0px 10px 0px rgba(0,0,0,0.75);
-    width: 200px;
+    width: 250px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -22,10 +22,9 @@ section {
         background-color: white;
     }
     & .email{
-        background-color: rgb(147, 168, 168);
         font-weight: bold;
         font-size: 12px;
-        width: 250px;
+        text-wrap: wrap;
         height: 15px;
         border-radius: 8px;
         justify-content: center;

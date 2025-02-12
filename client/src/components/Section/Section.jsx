@@ -40,8 +40,8 @@ export const Section = () => {
   return (
     <>
       <div>
+      <button onClick={handleAnterior}>anterior</button> 
          <button onClick={handleClick}>siguiente</button>
-         <button onClick={handleAnterior}>anterior</button> 
       </div>
       <section>
         
