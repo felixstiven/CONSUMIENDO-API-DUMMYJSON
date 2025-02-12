@@ -22,7 +22,7 @@ export const Productos = () => {
             <Header title="Productos"/>
             {
                 productos && productos.map((producto)=>{
-                    return <section><ProductosCard key={producto.id} contenido={producto}/></section>
+                    return <section key={producto.id}><ProductosCard contenido={producto}/></section>
                     
                 })
            }
