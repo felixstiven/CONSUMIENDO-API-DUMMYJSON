@@ -18,9 +18,9 @@ class userModelo{
         return await colUser.findOne({ _id: new ObjectId(id)});
     }
 
-    async update(id){
+    async update(id, data){
         const colUser = dbClient.db.collection('test prueba');
-        return await colUser.updateOne({ _id: new ObjectId(id)});
+        return await colUser.updateOne({ _id: new ObjectId(id)}, {$set: data});
     }
 
     async delete(id){
