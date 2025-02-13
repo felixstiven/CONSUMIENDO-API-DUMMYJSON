@@ -8,7 +8,7 @@ export const ProductosCard = ({ contenido }) => {
 
     return (
         <>
-          <div className='card' id={id}>
+          <div   className='card' id={id}>
             <img className="image" src={images[0]} alt={description}/>
             <h2 className='description'>{description}</h2>
             <div className="price-container">

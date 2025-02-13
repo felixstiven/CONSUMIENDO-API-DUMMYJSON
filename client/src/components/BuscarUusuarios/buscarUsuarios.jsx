@@ -1,5 +1,7 @@
 
 import { useState, useTransition} from "react";
+import { WheatherCard } from "../WeatherCard/WeatherCard";
+
 
 const fetchData = async (nombre) =>{
     try{
@@ -11,7 +13,7 @@ const fetchData = async (nombre) =>{
           throw new Error("Error fetching data");
       }
       const data = await response.json();
-      return data
+      return Array.isArray(data) ? data:[];
     }catch(error){
         console.log(error);
         return "error fetchind data catch example"
@@ -22,7 +24,7 @@ const fetchData = async (nombre) =>{
 export const FormData = () => {  
     const [nombre, setNombre] = useState("");  
     const [isPending, startTransition] = useTransition();  
-    const [weather, setWeather] = useState(null);  
+    const [weather, setWeather] = useState([]);  
     const [fetchError, setFetchError] = useState(null); // Agregamos estado para manejar errores  
 
     const handleSubmit = () => {  
@@ -30,8 +32,9 @@ export const FormData = () => {
             fetchData(nombre).then(data => {  
                 if (data.error) {  
                     setFetchError(data.error); // Maneja el error  
-                    setWeather(null); // Limpia los datos  
+                    setWeather([]); // Limpia los datos  
                 } else {  
+                    console.log(weather);
                     setWeather(data);  
                     setFetchError(null); // Limpia errores  
                 }  
@@ -40,8 +43,9 @@ export const FormData = () => {
     };  
 
     return (
-        <div>
-            <h1>wheater app</h1>
+        <>
+        
+            <h1>Buscar usuarios</h1>
             <input
                 type="text"
                 value={nombre}
@@ -50,9 +54,17 @@ export const FormData = () => {
             <button onClick={handleSubmit}>Buscar</button>
 
             {isPending && <div>loading....</div>}
-            {weather && <pre>{JSON.stringify(weather, null, 2)}</pre>}
-        </div>
-    )
+            {fetchError && <div>Error: {fetchError} </div>}
+            {weather.length > 0 ? (
+                weather.map((weathers)=>(
+                    <WheatherCard key={weathers._id} weather={weathers} /> 
+                ))
+            ) : (
+                <div>No hay usuarios encontrados.</div> 
+            )}
+        </>    
+       
+    );
 };
 
 
