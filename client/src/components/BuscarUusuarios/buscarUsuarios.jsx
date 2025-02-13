@@ -1,6 +1,7 @@
 
 import { useState, useTransition} from "react";
 import { WheatherCard } from "../WeatherCard/WeatherCard";
+import { Header } from "../Header/Header";
 
 
 const fetchData = async (nombre) =>{
@@ -44,7 +45,8 @@ export const FormData = () => {
 
     return (
         <>
-        
+            
+            <Header title="Buscar usuarios" />
             <h1>Buscar usuarios</h1>
             <input
                 type="text"

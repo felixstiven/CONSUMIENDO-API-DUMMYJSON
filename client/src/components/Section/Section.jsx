@@ -2,6 +2,7 @@
 import './Section.css';
 import UseCard from '../UserCard/UseCard';
 import { useState, useEffect, } from 'react';
+import { Header } from '../Header/Header';
 
 
 
@@ -39,6 +40,7 @@ export const Section = () => {
 
   return (
     <>
+      <Header/>
       <div>
       <button onClick={handleAnterior}>anterior</button> 
          <button onClick={handleClick}>siguiente</button>

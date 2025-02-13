@@ -4,6 +4,10 @@
   padding: 2rem;
   text-align: center;
 }
+body{
+  background-image:  url('https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/04/javascript-2682389.jpg?tf=3840x');
+  background-size: 30%;
+}
 
 .logo {
   height: 6em;
