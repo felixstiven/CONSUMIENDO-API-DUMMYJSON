@@ -1,12 +1,17 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 body{
-  background-image:  url('https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/04/javascript-2682389.jpg?tf=3840x');
-  background-size: 30%;
+  background-image:  url('https://plus.unsplash.com/premium_photo-1720287601300-cf423c3d6760?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZnVsbCUyMHN0YWNrJTIwZGV2ZWxvcGVyfGVufDB8fDB8fHww');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  
+ 
 }
 
 .logo {

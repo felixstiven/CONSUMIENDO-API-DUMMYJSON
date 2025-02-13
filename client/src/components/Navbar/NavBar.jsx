@@ -1,11 +1,12 @@
 
 import { NavLink } from "react-router-dom";
+import './NavBar.css';
 
 export const NavBar = () => {
     return (
-        <nav>
-            <ul>
-                <li style={{listStyle: 'none'}}>
+        <nav className="navbar">
+            <ul className="navbar-list">
+                <li >
                     <NavLink to="/">Inicio</NavLink>
                 </li>
                 <li style={{listStyle: 'none'}}>
