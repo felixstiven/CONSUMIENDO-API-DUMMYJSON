@@ -11,13 +11,11 @@ function Home() {
   return (
     <>
         <Header title="Fullstack"  />
-        <section className="hero">
+           <section className="hero">
                 <div className="container">
                     <div className='info'>
                         <h1>Desarollador Frontend y Backend</h1>
-                    </div>
-                    <div className="description">
-                    <p>Codifico y programo cosas maravillosas simples, y me encanta lo que hago</p>
+                        <p>Codifico y programo, y me encanta lo que hago</p>
                     </div>
                 </div>
             </section>
@@ -45,7 +43,7 @@ function Home() {
                     <div className="col">
                         <BsPersonCircle className="fa-solid fa-user"/>
                         <span className="titulo-detalle">Perfil</span>
-                        <p>Desarollador full stack y bakend</p>
+                        <p>Desarollador full stack y backend</p>
                     </div>
                     <div className="col">
                         <BsPinMap/>
@@ -57,6 +55,15 @@ function Home() {
                         <span className="titulo-detalle">Intereses</span>
                         <p>Estudiar, programar, jugar soccer, dedicar tiempo a mi familia.</p>
                     </div>
+                </div>
+            </div>
+        </section> 
+        <section className="sobremi" id="sobremi">
+            <div className="contenido-seccion">
+                <h2 className="titulo-seccion">Sobre Mi</h2>
+                <p className="especial">Me dedico a estudiar, producir ideas creativas y originales</p>
+                <div className="fila">
+                    
                 </div>
             </div>
         </section> 

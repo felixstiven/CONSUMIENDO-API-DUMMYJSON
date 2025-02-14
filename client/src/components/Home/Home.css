@@ -15,145 +15,46 @@ html{
 
 
 .hero {
-    color: white;
-    font-weight: bold;
-    font-size: 25px;
-    margin-top: 50px;
-    & img {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-    }
-    & .container{
-       
-        padding:  2px 50px;
-    }& img{
-        width: 250px;
-        height: 210px;
-        border-radius: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.034), rgba(0, 0, 0, 0.385));
+    border-radius: 100px;
+    & .info{
+        color: #ffffff;
+        animation-duration: 1s;
+        animation-name: slidein;
+        & h1{
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 0;
+            padding: 18px;
+        }
     }
 }
+@keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 300%;
+    }
+  
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
+
+
 
 .dropdown{
     color: yellow;
     font-size: 20px;
-   
 }
 
-
-
-.inicio{
-    background: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)),
-    url(./imagenes/fondo1.jpg);
-    background-size: cover;
-    background-position: center center;
-    color: #e6e1e1;
-    
-}
-.inicio .contenido-seccion{
-    max-width: 1000px;
-    margin: auto;
-    text-align: center;
-    padding: 0 10px;
-}
-.inicio .contenido-seccion header{
-    padding: 30px;
-}
-/* MENI LATERAL*/
-.inicio .contenido-seccion header nav{
-    position: fixed;
-    margin-left: 60px;
-    background-color: #940253;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: left;
-    z-index: 99;
-    display: none;
-}
-.inicio .contenido-seccion header nav a{
-    display: block;
-    color: #fff;
-    text-decoration: none;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-/* ****** */
-.inicio .contenido-seccion header .logo{
-    font-weight: bold;
-    font-size: 2.5rem;
-    font-family: "yellowtail";
-    text-shadow: 0 0 35px #fffdfd;
-}
-.inicio .contenido-seccion header .color{
-    color: #940253;
-    font-family: "yellowtail";
-}
-.inicio .contenido-seccion header .nav-bar{
-    position: fixed;
-    background-color: #940253;
-    font-size: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    line-height: 50px;
-    cursor: pointer;
-    transition: .3s;
-}
-.inicio .contenido-seccion header .nav-bar:hover{
-    box-shadow: 0 0 35px #fff;
-}
-.inicio .contenido-seccion .info{
-    padding-bottom: 130px;
-}
-.inicio .contenido-seccion .info h1{
-    font-size: 3rem;
-    letter-spacing: 5px;
-    color:#940253;   
-}
-.inicio .contenido-seccion .info h2{
-    font-weight: normal;
-    text-transform: uppercase;
-    font-size: 20px;
-    margin-top: -10px;
-    letter-spacing: 2px;
-}
-.inicio .contenido-seccion .info .redes{
-    margin: 20px 0;
-}
-.inicio .contenido-seccion .info .redes a{
-    display: inline-block;
-    text-decoration: none;
-    background-color: #000;
-    color: #940253;
-    border: 1px solid #940253;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    margin: 0 5px;
-    transition: .3s;
-}
-.inicio .contenido-seccion .info .redes a:hover{
-    color: #fff;
-    background-color: #940253;
-    box-shadow: 0 0 20px #fff;
-}
-.inicio .contenido-seccion .foto{
-    position: relative;
-}
-.inicio .contenido-seccion .foto img{
-    max-width: 200px;
-    border-radius: 50%;
-    border: 5px solid #940253;
-    position: absolute;
-    left: 50%;
-    top: -100px;
-    transform: translateX(-50%);
-}
 /*ESTILOS GENERALES*/
 .titulo-seccion{
     font-family: "yellowtail";
-    font-size: 2rem;
+    font-size: 3rem;
+    margin-top: -105px;
 }
 /* SECCION SOBRE MI*/
 .sobremi{
@@ -165,6 +66,7 @@ html{
     color: #e6e1e1;
     padding: 180px 0 100px 0;
     text-align: center;
+    margin-top: 20px;
 }
 .sobremi .contenido-seccion{
     max-width: 1000px;
@@ -174,6 +76,7 @@ html{
 .sobremi .contenido-seccion .especial{
     color: #940253;
     font-weight: bold;
+    font-size: 20px;
     margin-top: 15px;
 }
 .sobremi .contenido-seccion p{
@@ -181,6 +84,9 @@ html{
     margin: auto;
     color: #ffffff;
 }
+
+
+
 .sobremi .contenido-seccion .fila{
     display: flex;
     margin-top: 30px;
@@ -198,12 +104,36 @@ html{
     border-radius: 50%;
     line-height: 40px;
 }
-.sobremi .contenido-seccion .fila .col span{
-    display: block;
-    font-weight: bold;
-    margin: 8px 0;
-}
+.hack{
+    height: auto;
+    & h2{
+        color: #ffffff;
+        font-size: 30px;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+    & .description{
+        color: #ffffff;
+        font-size: 20px;
+        margin-top: 20px;
+        padding: 15px;
+    }
+    & .imagen-hack{
+        margin: auto;
+        width: 500px;
+        margin-top: 50px;
+        margin-bottom: 10px;
+        border-radius: 100px;
+        box-shadow: 0 0 10px 0 #000000;
+    }
+        & img{
+            width: 100%;
+            border-radius: 100px;
+        }
+    }        
 
+
+ 
 
 /* SECCION DE CONTACTO*/
 .contacto{
