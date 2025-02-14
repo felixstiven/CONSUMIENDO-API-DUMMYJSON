@@ -1,30 +1,33 @@
 import './Header.css';
 import propTypes from 'prop-types';
 import { NavBar } from '../Navbar/NavBar';
+import { FaHtml5,  FaReact , FaNodeJs } from "react-icons/fa";
+import { IoLogoCss3, IoLogoJavascript  } from "react-icons/io";
+import { BiLogoMongodb } from "react-icons/bi";
+import { SiExpress, SiLaragon } from "react-icons/si";
+import { FaGithubAlt } from "react-icons/fa6";
+
 
 
 
 export const Header = ({children, title}) => {
     return (
         <>
-             <header className="header">
+            <header className="header">
                <h1>{title}</h1>
+               <div className="header-content">
+                  <span><FaHtml5/></span>
+                  <span><IoLogoCss3/></span>
+                  <span><IoLogoJavascript/></span>
+                  <span><FaReact/></span>
+                  <span><BiLogoMongodb/></span>
+                  <span><SiLaragon/></span>
+                  <span><SiExpress/></span>
+                  <span><FaNodeJs/></span>
+                  <span><FaGithubAlt/></span>
+               </div>
                <NavBar/>
             </header>
-            <section className="hero">
-                <div className="container">
-                    <div className="foto">
-                        <img src="StivenFelixAlvis.jpeg" alt="foto"/>
-                    </div>
-                    <div className='info'>
-                        <h1>Stiven Felix</h1>
-                        <h2>Desarollador Fullstack</h2>
-                    </div>
-                    <div className="description">
-                        <p>Me dedico a estudiar, producir ideas creativas y originales</p>
-                    </div>
-                </div>
-            </section>
         </>
        
         

@@ -1,5 +1,5 @@
 
-import { Header } from "../Header/Header";
+import { Header } from "../Header/Header.jsx";
 import { MdFacebook  } from "react-icons/md";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { BsPersonCircle, BsPinMap, BsEmojiSunglasses  } from "react-icons/bs";
@@ -10,27 +10,35 @@ function Home() {
   return (
     <>
         <Header title="Fullstack"  />
+        <section className="hero">
+                <div className="container">
+                    <div className='info'>
+                        <h1>Desarollador Frontend y Backend</h1>
+                    </div>
+                    <div className="description">
+                    <p>Codifico y programo cosas maravillosas simples, y me encanta lo que hago</p>
+                    </div>
+                </div>
+            </section>
 
-         {/* <section className="inicio" id="inicio">
-               <div className="info">
-                   <h1>STIVEN FELIX</h1>
-                   <h2>desarollador Fullstack</h2>
-                   <div className="redes">
-                       <a href="https://www.facebook.com/Stiiven.feliix/?locale=es_LA"><MdFacebook/></a>
-                       <a href="https://www.instagram.com/stifelxtrader/"><FaSquareInstagram/></a>
-                   </div>
-               </div>  
-               <div className="foto">
-                   
-               </div>   
-        </section> 
+            {/* <section className="inicio" id="inicio">
+                   <div className="info">
+                       <h1>STIVEN FELIX</h1>
+                       <h2>desarollador Fullstack</h2>
+                       <div className="redes">
+                           <a href="https://www.facebook.com/Stiiven.feliix/?locale=es_LA"><MdFacebook/></a>
+                           <a href="https://www.instagram.com/stifelxtrader/"><FaSquareInstagram/></a>
+                       </div>
+                   </div>  
+                   <div className="foto">
+                       
+                   </div>   
+            </section>  */}
   
   
-        <section className="sobremi" id="sobremi">
+       <section className="sobremi" id="sobremi">
             <div className="contenido-seccion">
                 <h2 className="titulo-seccion">Sobre Mi</h2>
-                <h3>Detalles personales</h3>
-        
                 <p className="especial">Me dedico a estudiar, producir ideas creativas y originales</p>
                 <div className="fila">
                     <div className="col">
@@ -78,7 +86,6 @@ function Home() {
                </div>
            </div>
         </section>
-      */}
       </>
   );
 }
