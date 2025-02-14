@@ -3,6 +3,7 @@ import { Header } from "../Header/Header.jsx";
 import { MdFacebook  } from "react-icons/md";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { BsPersonCircle, BsPinMap, BsEmojiSunglasses  } from "react-icons/bs";
+import { NavBar } from "../Navbar/NavBar.jsx";
 
 import './Home.css';
 

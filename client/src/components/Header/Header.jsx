@@ -1,6 +1,6 @@
 import './Header.css';
 import propTypes from 'prop-types';
-import { NavBar } from '../Navbar/NavBar';
+import  {NavBar} from '../Navbar/NavBar';
 import { FaHtml5,  FaReact , FaNodeJs } from "react-icons/fa";
 import { IoLogoCss3, IoLogoJavascript  } from "react-icons/io";
 import { BiLogoMongodb } from "react-icons/bi";
@@ -26,7 +26,7 @@ export const Header = ({children, title}) => {
                   <span><FaNodeJs/></span>
                   <span><FaGithubAlt/></span>
                </div>
-               <NavBar/>
+                <NavBar/>
             </header>
         </>
        
