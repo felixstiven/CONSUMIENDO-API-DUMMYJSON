@@ -52,6 +52,27 @@
 
 }
 
+@media screen and (max-width: 428px){
+    .header{
+        flex-direction: column;
+        align-items: center;
+        & .header-content{
+            width: 100%;
+            margin-top: 1em;
+        }
+    } 
+    .header ,.header-content{
+        flex-direction: column;
+    }
+    .navbar-list{
+        flex-direction: column;
+        align-items: center;
+        & li{
+            margin: 1em 0;
+        }
+    }
+    
+}
 @media screen and (max-width: 768px){
     .header{
         flex-direction: column;

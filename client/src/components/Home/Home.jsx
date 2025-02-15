@@ -59,11 +59,16 @@ function Home() {
             </div>
         </section> 
         <section className="sobremi" id="sobremi">
-            <div className="contenido-seccion">
-                <h2 className="titulo-seccion">Sobre Mi</h2>
-                <p className="especial">Me dedico a estudiar, producir ideas creativas y originales</p>
-                <div className="fila">
-                    
+            <div className="contenido-seccion seccion-2">
+                <h2 className="titulo-seccion-2">Ganador hackathon TECH 2024</h2>
+                <p className="especial especial-2">Desarollo de una aplicacion web para la Unidad Administrativa Especial de Servicios Publicos (UAESP)</p>
+                <div className="container-hackathon">
+                    <div className="hackathon">
+                       <img src="hackathon.jpeg" alt="UAESP" /> 
+                    </div>
+                    <div className="hackathon">
+                       <img src="tech.jpeg" alt="UAESP" /> 
+                    </div>
                 </div>
             </div>
         </section> 
