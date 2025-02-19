@@ -1,0 +1,48 @@
+.section {
+    background-color: aqua;
+    margin-bottom: 20px;
+  }
+  .card{
+          background-color: bisque;
+          box-shadow:  0px 0px 10px 0px rgba(0,0,0,0.75);
+          width: 450px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 12px 0;
+          & .image{
+              width: 100px;
+              height: 100px;
+              border-radius: 50%;
+              background-color: white;
+          }
+          & .description{
+              font-size: 14px;
+              text-align: center;
+              padding: 0 12px;
+          }
+      
+          .price-container{
+              background-color: rgb(169, 190, 190);
+              max-width: 70px;
+              border-radius: 8px;
+              padding: 5px;
+          }
+          & .price{
+              font-weight: bold;
+              font-size: 25pxpx;
+              text-wrap: wrap;
+              justify-content: center;
+              
+          }
+      }
+
+.container-button{
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+    gap: 10px;
+    padding: 10px;
+}
+  
