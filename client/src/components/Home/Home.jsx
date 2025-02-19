@@ -1,9 +1,8 @@
 
 import { Header } from "../Header/Header.jsx";
-import { MdFacebook  } from "react-icons/md";
-import { FaSquareInstagram } from "react-icons/fa6";
-import { BsPersonCircle, BsPinMap, BsEmojiSunglasses  } from "react-icons/bs";
-import { NavBar } from "../Navbar/NavBar.jsx";
+import { BsPersonCircle, BsPinMap, BsEmojiSunglasses, BsTelephonePlus  } from "react-icons/bs";
+import { BiLogoGmail } from "react-icons/bi";
+
 
 import './Home.css';
 
@@ -19,86 +18,59 @@ function Home() {
                     </div>
                 </div>
             </section>
-
-            {/* <section className="inicio" id="inicio">
-                   <div className="info">
-                       <h1>STIVEN FELIX</h1>
-                       <h2>desarollador Fullstack</h2>
-                       <div className="redes">
-                           <a href="https://www.facebook.com/Stiiven.feliix/?locale=es_LA"><MdFacebook/></a>
-                           <a href="https://www.instagram.com/stifelxtrader/"><FaSquareInstagram/></a>
-                       </div>
-                   </div>  
-                   <div className="foto">
-                       
-                   </div>   
-            </section>  */}
-  
-  
-       <section className="sobremi" id="sobremi">
-            <div className="contenido-seccion">
-                <h2 className="titulo-seccion">Sobre Mi</h2>
-                <p className="especial">Me dedico a estudiar, producir ideas creativas y originales</p>
-                <div className="fila">
-                    <div className="col">
-                        <BsPersonCircle className="fa-solid fa-user"/>
-                        <span className="titulo-detalle">Perfil</span>
-                        <p>Desarollador full stack y backend</p>
-                    </div>
-                    <div className="col">
-                        <BsPinMap/>
-                        <span className="titulo-detalle">Ubicacion</span>
-                        <p>Colombia. Bogota D,C</p>
-                    </div>
-                    <div className="col">
-                        <BsEmojiSunglasses/>
-                        <span className="titulo-detalle">Intereses</span>
-                        <p>Estudiar, programar, jugar soccer, dedicar tiempo a mi familia.</p>
+            <section className="sobremi" id="sobremi">
+                <div className="contenido-seccion">
+                    <h2 className="titulo-seccion">Sobre Mi</h2>
+                    <p className="especial">Me dedico a estudiar, producir ideas creativas y originales</p>
+                    <div className="fila">
+                        <div className="col">
+                            <BsPersonCircle className="fa-solid fa-user"/>
+                            <span className="titulo-detalle">Perfil</span>
+                            <p>Desarollador full stack y backend</p>
+                        </div>
+                        <div className="col">
+                            <BsPinMap/>
+                            <span className="titulo-detalle">Ubicacion</span>
+                            <p>Colombia. Bogota D,C</p>
+                        </div>
+                        <div className="col">
+                            <BsEmojiSunglasses/>
+                            <span className="titulo-detalle">Intereses</span>
+                            <p>Estudiar, programar, jugar soccer, dedicar tiempo a mi familia.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section> 
-        <section className="sobremi" id="sobremi">
-            <div className="contenido-seccion seccion-2">
-                <h2 className="titulo-seccion-2">Ganador hackathon TECH 2024</h2>
-                <p className="especial especial-2">Desarollo de una aplicacion web para la Unidad Administrativa Especial de Servicios Publicos (UAESP)</p>
-                <div className="container-hackathon">
-                    <div className="hackathon">
-                       <img src="hackathon.jpeg" alt="UAESP" /> 
-                    </div>
-                    <div className="hackathon">
-                       <img src="tech.jpeg" alt="UAESP" /> 
+            </section> 
+            <section className="sobremi" id="sobremi">
+                <div className="contenido-seccion seccion-2">
+                    <h2 className="titulo-seccion-2">Ganador hackathon TECH 2024</h2>
+                    <p className="especial especial-2">Desarollo de una aplicacion web para la Unidad Administrativa Especial de    Servicios Publicos (UAESP)</p>
+                    <div className="container-hackathon">
+                        <div className="hackathon">
+                            <img src="hackathon.jpeg" alt="UAESP" /> 
+                        </div>
+                        <div className="hackathon">
+                            <img src="tech.jpeg" alt="UAESP" /> 
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section> 
-        <section className="contacto" id="contacto">
-           <div className="contenido-seccion">
-               <h2 className="titulo-seccion">Contacto</h2>
-               <h3>Ponte en contacto ahora mismo!</h3>
-       
-               <div className="fila">
-                   <div className="col">
-                       <h2>
-                       <i className="fa-solid fa-phone"></i> Telefono
-                       </h2>
-                       <span className="info-contacto">+57-3107729036</span>
-                   </div>
-                   <div className="col">
-                       <h2>
-                           <i className="fa-solid fa-envelope"></i> Correo
-                       </h2>
-                       <span className="info-contacto">felixstiven12@gmail.com</span>
-                   </div>
-                   <div className="col">
-                       <h2>
-                           <i className="fa-solid fa-globe"></i> Pagina web
-                       </h2>
-                       <span className="info-contacto">felixstiven.com</span>
-                   </div>
-               </div>
-           </div>
-        </section>
+            </section> 
+            <section className="contacto" id="contacto">
+                <div className="contenido-seccion">
+                    <h2 className="titulo-seccion">Contacto</h2>
+                    <h3>Ponte en contacto ahora mismo!</h3>
+                    <div className="fila">
+                        <div className="col">
+                            <h2>Telefono</h2>
+                            <a className="info-contacto" href="https://api.whatsapp.com/send/?phone=573107729036"><BsTelephonePlus/></a>
+                        </div>
+                        <div className="col">
+                            <h2>Correo</h2>
+                            <a className="info-contacto" href="mailto:felixstiven12@gmail.com"><BiLogoGmail/></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
       </>
   );
 }

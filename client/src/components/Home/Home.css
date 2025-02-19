@@ -11,9 +11,7 @@ html{
     scroll-behavior: smooth;
 }
 
-/* SECCION INICIO*/
-
-
+/* Header*/
 .hero {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -29,26 +27,22 @@ html{
             margin: 0;
             padding: 18px;
         }
+        & p{
+            color: yellowgreen;
+        }
     }
 }
 @keyframes slidein {
     from {
-      margin-left: 100%;
-      width: 300%;
+        margin-left: 100%;
+        width: 300%;
     }
-  
-    to {
-      margin-left: 0%;
-      width: 100%;
+    to{
+        margin-left: 0%;
+        width: 100%;
     }
-  }
-
-
-
-.dropdown{
-    color: yellow;
-    font-size: 20px;
 }
+
 
 /*ESTILOS GENERALES*/
 .titulo-seccion{
@@ -75,7 +69,7 @@ html{
     padding: 0 10px;
 }
 .sobremi .contenido-seccion .especial{
-    color: #940253;
+    color:yellowgreen;
     font-weight: bold;
     font-size: 20px;
     margin-top: 15px;
@@ -85,8 +79,6 @@ html{
     margin: auto;
     color: #ffffff;
 }
-
-
 
 .sobremi .contenido-seccion .fila{
     display: flex;
@@ -119,7 +111,6 @@ html{
 
 }
 
-
 .sobremi .contenido-seccion .hackathon{
     width: 580px;
     height: 520px;
@@ -147,7 +138,7 @@ html{
     border-radius: 50%;
     line-height: 40px;
 }
-.hack{
+/* .hack{
     height: auto;
     & h2{
         color: #ffffff;
@@ -173,10 +164,7 @@ html{
             width: 100%;
             border-radius: 100px;
         }
-    }        
-
-
- 
+    }         */
 
 /* SECCION DE CONTACTO*/
 .contacto{
@@ -213,7 +201,13 @@ html{
     box-shadow: 0 0 20px #fff;
 }
 .contacto .contenido-seccion .fila .col h2{
-    color: #940253;
+    color:yellowgreen;
+}
+.contacto .contenido-seccion .fila .col .info-contacto{
+    font-size: 40px;
+    padding: 5px;
+    background-color: rgb(200, 212, 174);
+    border-radius: 35%;
 }
 
 
