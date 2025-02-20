@@ -80,3 +80,34 @@ button:active {
     } 
 
 
+@media(max-width: 670px){
+    
+/* tyle for the componet products */
+.card-section{
+    width: 100%;
+}
+
+.container-title{
+    width: 100%;
+    color: #fff;
+    padding:2px;
+    justify-content: center;
+}
+}
+
+@media(max-width:500px){
+    .container-card{
+        width: 200px;
+        & .container-button-user{
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+    .card-section {
+        background-color: #45a049;
+        width: 100%;
+        & p{
+            font-size: 12px;
+        }
+    }
+}

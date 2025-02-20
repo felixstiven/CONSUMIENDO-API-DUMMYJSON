@@ -28,7 +28,8 @@ export const Productos = () => {
         })
     },[count]);
 
-    const handleAnterior = () =>{
+    const handleAnterior = (event) =>{
+        event.preventDefault();
         if (count > 1 ){
             setCount( count - 1)
         } else{
@@ -36,7 +37,8 @@ export const Productos = () => {
         }
     };
 
-    const handleSiguiente = () =>{
+    const handleSiguiente = (event) =>{
+        event.preventDefault();
         setCount( count +1 )    
     };
 

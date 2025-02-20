@@ -1,4 +1,5 @@
 import './ProductosCard.css';
+import PropTypes from 'prop-types';
 
 export const ProductosCard = ({contenido}) => {
     const {id, description, price, images } = contenido;
@@ -12,7 +13,15 @@ export const ProductosCard = ({contenido}) => {
             <div className="price-container">
             <p className='price'>{`${price} USD`}</p>
             </div>
-         </div>
+          </div>
         </>
-    )
-}
+)}
+
+ProductosCard.propTypes = {
+    contenido: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    }).isRequired,
+};

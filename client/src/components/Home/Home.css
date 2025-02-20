@@ -384,16 +384,16 @@ html{
             }
             }     
         
-@media(max-width:500px){
+@media(max-width:540px){
    
     .hero {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        background: linear-gradient(rgba(0, 0, 0, 0.034), rgba(0, 0, 0, 0.385));
-        border-radius: 100px;
+        width: 100%;
+        & .container{
+            width: 100%;
+        }
         & .info{
             margin: auto;
-            width: 100%;
+            width: 95%;
             color: #ffffff;
             animation-duration: 1s;
             animation-name: slidein;
