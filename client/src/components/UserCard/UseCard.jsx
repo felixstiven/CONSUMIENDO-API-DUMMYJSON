@@ -27,7 +27,7 @@ export const UseCard = ({ contenido }) => {
   )
 }
 UseCard.propTypes = {
-  user: PropTypes.shape({
+  contenido: PropTypes.shape({
     id: PropTypes.number,
     firstName: PropTypes,
     email: PropTypes,

@@ -1,16 +1,12 @@
 
-import './Section.css';
 import UseCard from '../UserCard/UseCard';
 import { useState, useEffect, } from 'react';
-import { Header } from '../Header/Header';
 
-
-
-
-export const Section = () => {
+export const Section = ( ) => {
 
   const [count, setCount] = useState(1)
   const [user, setUser] = useState({})
+  
 
   useEffect(()=>{
     fetch(`https://dummyjson.com/users/${count}`)
@@ -22,7 +18,8 @@ export const Section = () => {
   },[count])
 
 
-  const handleClick = () =>{
+
+  const handleSiguiente = () =>{
     
     setCount( count +1 )
 
@@ -31,26 +28,20 @@ export const Section = () => {
     if (count > 1 ){
       setCount( count - 1)
     } else{
-      alert('no se puede dar para atras')
+      alert('No se encontraron mas usuarios')
     }
   }
 
-
-
-
   return (
-    <>
-      <Header/>
-      <div>
-      <button onClick={handleAnterior}>anterior</button> 
-         <button onClick={handleClick}>siguiente</button>
-      </div>
-      <section>
-        
-                <UseCard key={user.id} contenido={user}/>
-        
-      </section>
-    </>
+    <>    <div className='container-card'>
+            <UseCard key={user.id} contenido={user}/>
+                <div className='container-button-user'>
+                    <button onClick={handleAnterior}>anterior</button> 
+                    <button onClick={handleSiguiente}>siguiente</button>
+                </div>
+          </div>
+    </>        
+                    
   )
 }
 

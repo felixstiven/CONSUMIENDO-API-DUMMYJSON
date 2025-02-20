@@ -2,14 +2,17 @@ import './Productos.css';
 import { useState, useEffect } from 'react';
 import { Header } from '../Header/Header';
 import { ProductosCard } from '../ProductCard/ProductCard';
+import { Section } from './Section';
 
 
 
 
 export const Productos = () => {
     const [productos, setProductos] = useState([]);
-    const [estado, setEstado] = useState(false);
-    const [ocultar, setOcultar] = useState("Obtener Todos los productos de la Api");
+    const [estadoProducts, setEstadoProducts] = useState(false);
+    const [estadoUsuarios, setEstadoUsuarios] = useState(false);
+    const [ocultarproducts, setOcultarproducts] = useState("Ver productos");
+    const [ocultarUsuario, setOcultarUsuario] = useState("Ver usuario")
     const [count, setCount] = useState(1)
 
     useEffect(()=>{
@@ -29,7 +32,7 @@ export const Productos = () => {
         if (count > 1 ){
             setCount( count - 1)
         } else{
-            alert('no se puede dar para atras')
+            alert('No se encontraron mas productos')
         }
     };
 
@@ -37,25 +40,31 @@ export const Productos = () => {
         setCount( count +1 )    
     };
 
-    const handleClick = () => {
-        setEstado (!estado);
+    const handleClickEstadoProduct = () => {
+        setEstadoProducts (!estadoProducts);
 
-        setOcultar( estado ? "Ver todos Productos" : "Ocultar productos");
+        setOcultarproducts( estadoProducts ? "Ver todos Productos" : "Ocultar productos");
+    };
+
+    const handleClickEstadoUsuario = () => {
+        setEstadoUsuarios (!estadoUsuarios);
+
+        setOcultarUsuario( estadoUsuarios ? "Ver Usuarios" : "Ocultar Usuarios");
     };
 
     return (
         <> 
             <Header title="Productos"/>
-            <section className='container-princip'>
+            <section className='container-products'>
                     <div className='container-title'>
                         <h1>Productos de DummyJson</h1>
                         <div className=''>
-                            <p>Aplicacion frotend apuntando a uno de los endpoint de la apy DummyJson, donde capturamos los productos en formato Json y renderizamos el cliente en componentes del lado del cliente.</p>
-                            <button onClick={handleClick}>{ ocultar}</button>
+                            <p>Aplicacion poniendo en practica frot-end y back-end apuntando a uno de los endpoint de la API DummyJson obteniendo los productos por id.</p>
+                            <button onClick={handleClickEstadoProduct}>{ ocultarproducts}</button>
                         </div>
                     </div>
                 {
-                    estado ? (
+                    estadoProducts ? (
                         <>
                             <div className='container-card'>
                                 <ProductosCard key={productos.id} contenido={productos} />
@@ -67,11 +76,30 @@ export const Productos = () => {
                         </>
                     ) : (
                         <div>
-                            <img src="api.png" alt="imagen de productos" />
+                            <img src="Snnipercar2.gif" alt="imagen de productos" />
                         </div>
                     )
                 }    
+                <div className='container-title'>
+                        <h1>Usuarios de DummyJson</h1>
+                        <div className=''>
+                            <p>Aplicacion poniendo en practica frot-end y back-end apuntando a uno de los endpoint de la API DummyJson obteniendo los usuarios por id.</p>
+                            <button onClick={handleClickEstadoUsuario} >{ocultarUsuario}</button>
+                        </div>
+                </div>
+                {
+                    estadoUsuarios ? (
+                        <>
+                            <Section/>
+                        </>
 
+                    ) : 
+                    (
+                        <div>
+                            <img src="Snnipercar2.gif" alt="imagen de productos" />
+                        </div>
+                    )
+                }
             </section>
         </>
     )
