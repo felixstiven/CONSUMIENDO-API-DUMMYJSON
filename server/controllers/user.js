@@ -17,8 +17,8 @@ class usersController{
     async update(req, res){
         try{
             const {id} = req.params;
-            const data = await userModelo.update(id, req.body);
-            res.status(201).json(data);
+            const user = await userModelo.update(id, req.body);
+            res.status(201).json(user);
         }catch(error){
             res.status(500).json({message: 'Error updating user', error});  
         }

@@ -4,15 +4,15 @@ const route = express.Router();
 
 route.post('/create', usersController.create);
 
-route.get('/obtener', usersController.getAll);
+route.get('/', usersController.getAll);
 
-route.get('/obtener/:id', usersController.getOne);
+route.get('/:id', usersController.getOne);
 
-route.get('/nombre/:nombre', usersController.getFilter)
+route.get('/:nombre', usersController.getFilter)
 
-route.put('/actualizar/:id', usersController.update);
+route.put('/:id', usersController.update);
 
-route.delete('/eliminar/:id', usersController.delete);
+route.delete('/:id', usersController.delete);
 
 export default route;
 

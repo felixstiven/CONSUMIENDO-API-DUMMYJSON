@@ -1,36 +1,29 @@
-import { ObjectId } from "mongodb";
-import dbClient from "../config/dbClient.js";
-
+import mongoose from 'mongoose';
+import Usuario from '../shemas/usuarios.js'
 
 class userModelo{
     async create(usuario){
-        const colUser = dbClient.db.collection('test prueba');
-        return await colUser.insertOne(usuario)
+        return await Usuario.create(usuario)
     };
 
     async getAll(){
-        const colUser = dbClient.db.collection('test prueba');
-        return await colUser.find({}).toArray();
+        return await Usuario.find();
     }
 
 
     async getOne(id){
-        const colUser = dbClient.db.collection('test prueba');
-        return await colUser.findOne({ _id: new ObjectId(id)});
+        return await Usuario.findById(id);
     }
     async getFilter(nombre){
-        const colUser = dbClient.db.collection('test prueba');
-        return await colUser.find({nombre:{$regex: new RegExp(nombre, 'i') }}).toArray();
+        return await Usuario.find({nombre});
     }
 
-    async update(id, data){
-        const colUser = dbClient.db.collection('test prueba');
-        return await colUser.updateOne({ _id: new ObjectId(id)}, {$set: data});
+    async update(id, user){
+        return await Usuario.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(id)}, user)
     }
 
     async delete(id){
-        const colUser = dbClient.db.collection('test prueba');
-        return await colUser.deleteOne({ _id: new ObjectId(id)});
+       return await Usuario.findOneAndDelete( {_id: new mongoose.Types.ObjectId(id)})
     }
 
 

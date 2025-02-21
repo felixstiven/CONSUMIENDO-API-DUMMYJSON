@@ -1,26 +1,25 @@
-import { MongoClient } from "mongodb";
+import  mongoose  from "mongoose";
 
 class dbClient {
     constructor(){
-        const queryString=`mongodb+srv://${process.env.USERDB}:${process.env.PASSWORDDB}@${process.env.SERVERDB}/?retryWrites=true&w=majority&appName=Cluster0&ssl=true&tlsInsecure=true`;
-        this.client = new MongoClient(queryString );
-        this.conectarBD();
+        this.conectarBaseDatos();
     }
-
-    async conectarBD() {
-        try {
-            await this.client.connect();
-            this.db = this.client.db('user');
-            console.log('Conexión a la base de datos exitosa');
-        } catch (error) {
-            console.log('Error conectando a la base de datos', error);
-            process.exit(1);
+    async conectarBaseDatos(){
+        const queryString =`mongodb+srv://${process.env.USERDB}:${process.env.PASSWORDDB}@${process.env.SERVERDB}/testprueba?retryWrites=true&w=majority`;
+        // this.client = new MongoClient(queryString );
+        try{
+            await mongoose.connect(queryString);
+            console.log("Conexion a la base de Datos exitosa");
+        }catch(error){
+            console.error('Error a la conexion base de Daos', error)
         }
+        
+        
     }
 
     async cerrandoBD() {
         try{
-            await this.client.close();
+            await mongoose.disconnect();
             console.log('Desconexión de la base de datos exitosa');
         }catch(error){
             console.log('Error desconectando la base de datos', error);

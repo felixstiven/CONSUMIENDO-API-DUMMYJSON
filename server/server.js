@@ -3,6 +3,7 @@ import 'dotenv/config';
 import route from './routes/usuarios.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import dbClient from './config/dbClient.js';
 
 
 const app = express();
@@ -22,3 +23,8 @@ try{
 }catch(err){
     console.log(err);
 }
+
+process.on('SIGINT', async()=>{
+    dbClient.cerrandoBD();
+    process.exit(0);
+})
