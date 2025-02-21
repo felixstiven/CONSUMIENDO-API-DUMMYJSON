@@ -15,7 +15,8 @@ class userModelo{
         return await Usuario.findById(id);
     }
     async getFilter(nombre){
-        return await Usuario.find({nombre});
+        console.log('buscando por:', nombre)
+        return await Usuario.find({nombre: new RegExp(nombre, 'i')});
     }
 
     async update(id, user){

@@ -8,7 +8,7 @@ route.get('/', usersController.getAll);
 
 route.get('/:id', usersController.getOne);
 
-route.get('/:nombre', usersController.getFilter)
+route.get('/filter/:nombre', usersController.getFilter)
 
 route.put('/:id', usersController.update);
 

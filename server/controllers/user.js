@@ -28,7 +28,10 @@ class usersController{
         try{
             const {id} = req.params;
             const data = await userModelo.delete(id);
-            res.status(201).json(data);
+            if(!data){
+                return res.status(404).json({message: 'User not found'})
+            }
+            res.status(201).json({message: 'User deleted succesfully'});
         }catch(error){
             res.status(500).json({message: 'Error deleting user', error});
         }
@@ -46,9 +49,13 @@ class usersController{
     async getFilter(req, res){
         try{
             const {nombre} = req.params;
-
             const data = await userModelo.getFilter(nombre);
+
+            if(data.length == 0){
+                return res.status(404).json({message:'No user found'});
+            }
             res.status(200).json(data);
+
         }catch(error){
             res.status(500).json({message: 'Error finding users', error});
         }
@@ -58,6 +65,9 @@ class usersController{
         try{
             const id = req.params.id;
             const data = await userModelo.getOne(id);
+            if(!data){
+                return res.status(404).json({message: 'User not found'})
+            }
             res.status(200).json(data);
         }catch(error){
             res.status(500).json({message: 'Error finding user', error});
