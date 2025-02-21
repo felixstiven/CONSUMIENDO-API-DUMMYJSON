@@ -17,14 +17,22 @@ export const Productos = () => {
 
     useEffect(()=>{
         fetch(`https://dummyjson.com/products/${count}`)
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok){
+                throw new Error('Error Response was not ok')
+            }
+            return res.json();
+        })
         .then(data=>{
-            console.log(data)
             if (data && data.id){
                 setProductos(data)
             } else{
                 alert('no se encontraron productos')
             }
+        })
+        .catch(error => {
+            console.error("there was a problem wit fetch operation:", error);
+            alert("Error al obtener productos");
         })
     },[count]);
 

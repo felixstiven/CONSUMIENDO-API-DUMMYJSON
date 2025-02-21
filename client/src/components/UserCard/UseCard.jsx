@@ -6,7 +6,7 @@ export const UseCard = ({ contenido }) => {
   const [isContacted, setIsContacted] = useState(false)
   // const [tecnologis, setTecnologis] = useState(['React', 'Node', 'MongoDB'])
 
-  const {id, firstName, phone, email, image} = contenido
+  const {id, firstName, phone, email, image} = contenido;
   const handleClick = () => {
     setIsContacted(true)
 }
@@ -29,10 +29,10 @@ export const UseCard = ({ contenido }) => {
 UseCard.propTypes = {
   contenido: PropTypes.shape({
     id: PropTypes.number,
-    firstName: PropTypes,
-    email: PropTypes,
-    phone: PropTypes,
-    image: PropTypes,
+    firstName: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+    image: PropTypes.any,
   })
 };
 

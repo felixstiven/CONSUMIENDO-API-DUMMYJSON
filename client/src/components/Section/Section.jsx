@@ -8,24 +8,33 @@ export const Section = ( ) => {
   
   const [count, setCount] = useState(1)
   const [user, setUser] = useState({})
-  const [loading, setLoading] = useState(false)
 
   useEffect(()=>{
-    setLoading(true)
+
     fetch(`https://dummyjson.com/users/${count}`)
-    .then(res => res.json())
+    .then(res => {
+      if(!res.ok){
+        throw new Error('Failed to fetch data')
+      }
+      return res.json();
+    })
     .then(data=>{
-      console.log(data)
-      setUser(data);
-      setLoading(false);
+      if(data && data.id){
+        setUser(data);
+      }else{
+        alert('No se encontaron usuarios');
+      }
+    }).catch(error =>{
+      console.error('Error al obetener los usuarios',error);
+      alert('Error al obetener los suarios');
     })
   },[count])
 
-  const handleSiguiente = useCallback((event) =>{
+  const handleSiguiente = (event) =>{
     event.preventDefault();
-    setCount( prevCount => prevCount + 1)
+    setCount( count + 1)
 
-  },[]);
+  };
 
   const handleAnterior = useCallback((event) =>{
     event.preventDefault();
@@ -40,8 +49,8 @@ export const Section = ( ) => {
     <>    <div className='container-card'>
             <UseCard key={user.id} contenido={user}/>
                 <div className='container-button-user'>
-                    <button onClick={handleAnterior} disabled={loading}>anterior</button> 
-                    <button onClick={handleSiguiente} disabled={loading}>siguiente</button>
+                    <button type='button' onClick={handleSiguiente} >Siguiente</button> 
+                    <button type='button' onClick={handleAnterior} >Anterior</button>
                 </div>
           </div>
     </>        
