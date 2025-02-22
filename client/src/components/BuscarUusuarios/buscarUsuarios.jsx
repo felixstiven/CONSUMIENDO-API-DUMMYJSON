@@ -2,6 +2,8 @@
 import { useState, useTransition} from "react";
 import { WheatherCard } from "../WeatherCard/WeatherCard";
 import { Header } from "../Header/Header";
+import FormUser from "../Form/Form";
+import './buscarUsuarios.css'
 
 
 const fetchData = async (nombre) =>{
@@ -45,15 +47,18 @@ export const FormData = () => {
 
     return (
         <>
-            
             <Header title="Buscar usuarios" />
-            <h1>Buscar usuarios</h1>
-            <input
-                type="text"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-            />
-            <button onClick={handleSubmit}>Buscar</button>
+            <div className="container-buscar">
+                <FormUser/>
+                <h1>Buscar usuarios</h1>
+                <input
+                    type="text"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                />
+                <button onClick={handleSubmit}>Buscar</button>
+            </div>
+            
 
             {isPending && <div>loading....</div>}
             {fetchError && <div>Error: {fetchError} </div>}
