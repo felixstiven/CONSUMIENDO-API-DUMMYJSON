@@ -28,9 +28,12 @@ export default function MyApi() {
                 </div>
                 
         </section>
-        { 
-            estado ? <FormUser/> : <div className='container-loading'><FcAcceptDatabase className='loading'/></div>
-        }
+        <div className='container-play'>
+            { 
+                estado ? <FormUser/>  : <div className='container-loading'><FcAcceptDatabase className='loading'/></div>
+            }
+        </div>
+        
             
     </>
   )

@@ -28,7 +28,7 @@ html{
             padding: 18px;
         }
         & p{
-            color: yellowgreen;
+            color:  #61dafb;
         }
     }
 }
@@ -69,7 +69,7 @@ html{
     padding: 0 10px;
 }
 .sobremi .contenido-seccion .especial{
-    color:yellowgreen;
+    color:  #61dafb;
     font-weight: bold;
     font-size: 20px;
     margin-top: 15px;
@@ -84,6 +84,16 @@ html{
     display: flex;
     margin-top: 30px;
     justify-content: space-between;
+}
+.sobremi .contenido-seccion .fila .col{
+    display: flex;
+    flex-direction: column;
+    & .fa-user{
+        background-color: #696666;
+        font-size: 35px;
+        margin: auto;
+        margin-bottom: 8px;
+    }
 }
 
 .sobremi .contenido-seccion .container-hackathon {
@@ -191,24 +201,29 @@ html{
 }
 .contacto .contenido-seccion .fila .col{
     margin-top: 50px;
-    border: 2px solid #696666;
+    border: 2px solid #25a0b6;
     padding:10px ;
     box-shadow: 0 0 15px #fff;
+    
 }
 .contacto .contenido-seccion .fila .col:hover{
     color: #fff;
     background-color: gray;
     box-shadow: 0 0 20px #fff;
 }
-.contacto .contenido-seccion .fila .col h2{
-    color:yellowgreen;
-}
-.contacto .contenido-seccion .fila .col .info-contacto{
-    font-size: 40px;
-    padding: 5px;
-    background-color: rgb(200, 212, 174);
-    border-radius: 35%;
-}
+.contacto .contenido-seccion {
+    color:  #fff;
+    & .fila {
+        margin: auto;
+            & a{
+                color:  #61dafb;
+                width: 100%;
+                font-size: 16px;
+                margin:auto;
+            }
+        }
+    }
+
 
 
 @media(max-width:1260px){
@@ -279,6 +294,16 @@ html{
     }
 
 @media(max-width:660px){
+    .navbar{
+        width: 100%;
+        display: flex;
+        & .navbar-list{
+            width: 100%;
+            flex-direction: row-reverse;
+            gap: 10px;
+        }
+    }
+
     .sobremi .seccion-2{
         width: 100%;
     }

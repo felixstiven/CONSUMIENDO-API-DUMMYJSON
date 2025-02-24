@@ -1,7 +1,7 @@
 
 import { Header } from "../Header/Header.jsx";
-import { BsPersonCircle, BsPinMap, BsEmojiSunglasses, BsTelephonePlus  } from "react-icons/bs";
-import { BiLogoGmail } from "react-icons/bi";
+import { BsPersonCircle, BsPinMap, BsEmojiSunglasses } from "react-icons/bs";
+
 
 
 import './Home.css';
@@ -24,17 +24,17 @@ function Home() {
                     <p className="especial">Me dedico a estudiar, producir ideas creativas y originales</p>
                     <div className="fila">
                         <div className="col">
-                            <BsPersonCircle className="fa-solid fa-user"/>
+                            <BsPersonCircle className="fa-user"/>
                             <span className="titulo-detalle">Perfil</span>
                             <p>Desarollador full stack y backend</p>
                         </div>
                         <div className="col">
-                            <BsPinMap/>
+                            <BsPinMap className="fa-user"/>
                             <span className="titulo-detalle">Ubicacion</span>
                             <p>Colombia. Bogota D,C</p>
                         </div>
                         <div className="col">
-                            <BsEmojiSunglasses/>
+                            <BsEmojiSunglasses className="fa-user"/>
                             <span className="titulo-detalle">Intereses</span>
                             <p>Estudiar, programar, jugar soccer, dedicar tiempo a mi familia.</p>
                         </div>
@@ -62,11 +62,11 @@ function Home() {
                     <div className="fila">
                         <div className="col">
                             <h2>Telefono</h2>
-                            <a className="info-contacto" href="https://api.whatsapp.com/send/?phone=573107729036"><BsTelephonePlus/></a>
+                            <a className="info-contacto" href="https://api.whatsapp.com/send/?phone=573107729036">+573107729036</a>
                         </div>
                         <div className="col">
                             <h2>Correo</h2>
-                            <a className="info-contacto" href="mailto:felixstiven12@gmail.com"><BiLogoGmail/></a>
+                            <a className="info-contacto" href="mailto:felixstiven12@gmail.com">felixstiven12@gmail.com</a>
                         </div>
                     </div>
                 </div>

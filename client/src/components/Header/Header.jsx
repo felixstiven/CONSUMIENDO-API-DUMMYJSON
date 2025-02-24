@@ -10,7 +10,7 @@ import { FaGithubAlt } from "react-icons/fa6";
 
 
 
-export const Header = ({children, title}) => {
+export const Header = ({ title}) => {
     return (
         <>
             <header className="header">

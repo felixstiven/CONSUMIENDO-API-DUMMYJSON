@@ -1,8 +1,8 @@
 .container-form{
     background-color: rgba(53, 52, 52, 0.668);
+    width: 100%;
     padding: 7cqb;
     color: #ffff;
-    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,7 +11,11 @@
     box-shadow: 2px 1px 8px  #f7f7f7;
     margin: auto;
     margin-top: 20px;
+    & .form{
+        padding: 5px;
+    }
    & .input-container{
+    width: 100%;
     position: relative;
     margin-bottom: 20px;
    }& .icon-input{
@@ -19,7 +23,7 @@
     padding: 10px 15px 10px 45px;
     border:  2px solid #2196f3;
     border-radius: 25px;
-    width: 300px;
+    width: 100%;
     font-size: 16px;
     color: #333;
     background-color: #f7f7f7 ;
@@ -32,4 +36,5 @@
     font-size: 25px;
    }
 }
+
 

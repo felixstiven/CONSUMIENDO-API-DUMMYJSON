@@ -1,13 +1,15 @@
 .container-api{
     background: linear-gradient(rgba(0, 0, 0, 0.034), rgba(0, 0, 0, 0.385));
     border: 1px solid #000;
-    width:70%;
+    width:95%;
+    border-radius: 15px;
     margin: 40px auto;
     display: flex;
     flex-direction: column;
     padding: 20px;
     & .text-api {
-        width: 800px;
+        width: 100%;
+        padding: 20px;
         margin: auto;
         text-align: justify;
         color: #fff;
@@ -20,17 +22,18 @@
             background-color: rgba(0, 255, 34, 0.133);
         }
     } & .play{
+        background-color: aqua;
         background: linear-gradient(rgba(0, 0, 0, 0.034), rgba(0, 0, 0, 0.385));
         border: 1px solid #000;
         display: flex;
         flex-direction: column;
         border-radius: 15px;
-        width: 50%;
+        width: 100%;
         margin: auto;
         padding: 5px;
         color: #fff;
         & button{
-            width: 150px;
+            width: 100%;
             font-size: 20px;
             margin: 8px auto;
 
@@ -38,11 +41,15 @@
     }
 }
 
-.container-loading {
-    background: linear-gradient(rgba(0, 0, 0, 0.034), rgba(0, 0, 0, 0.385));
-    width: 70%;
-    margin: auto;
+.container-play{
+    /* background: linear-gradient(rgba(0, 0, 0, 0.034), rgba(0, 0, 0, 0.385)); */
+    width: 100%;
+    border-radius: 25px;
+}   & .container-loading {
+    width: 100%;
+    padding: 5px;
     border: 1px solid #000;
+    border-radius: 25px;
     & .loading{
         font-size: 300px;
         margin: auto;

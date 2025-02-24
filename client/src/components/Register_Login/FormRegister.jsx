@@ -1,14 +1,15 @@
 import './FormRegister.css'
 import { FaUserPlus,  FaEyeDropper } from "react-icons/fa";
-
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import Swalt from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 export default function FormUser() {
 
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [edad, setEdad] = useState(0);
+  const navigate = useNavigate();
 
   
   const handleSubmit =  async (e) => {
@@ -22,15 +23,17 @@ export default function FormUser() {
     });
     if(res.ok){
       const data = await res.json();
-      Swalt.fire({
+      Swal.fire({
         title: " <h1>Registro Exitoso!!</h1>",
             html: "Hola <strong>"+nombre+"</strong> te has registrado con exito!!",
             icon: "success",
             timer : 4000
+      }).then(()=>{
+        navigate('/productos');
       })
       console.log(data);
     } else(err)=>{
-        Swalt.fire({
+        Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "No se logro resgistrar",
