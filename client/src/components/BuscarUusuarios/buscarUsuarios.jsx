@@ -1,22 +1,21 @@
 
 import { useState, useTransition} from "react";
-import { WheatherCard } from "../WeatherCard/WeatherCard";
+import { WeatherCard } from "../WeatherCard/WeatherCard.jsx";
 import { Header } from "../Header/Header";
-import FormUser from "../Form/Form";
 import './buscarUsuarios.css'
 
 
 const fetchData = async (nombre) =>{
-    try{
-         
-      const BASE_URL ="http://localhost:5000/usuario/nombre";
-      const response = await fetch(`${BASE_URL}/${nombre}`);
-  
-      if(!response.ok){
-          throw new Error("Error fetching data");
-      }
-      const data = await response.json();
-      return Array.isArray(data) ? data:[];
+    try{ 
+        const BASE_URL ="http://localhost:5000/usuario/filter";
+        const response = await fetch(`${BASE_URL}/${nombre}`);
+    
+        if(!response.ok){
+            throw new Error("Error fetching data");
+        }
+        const data = await response.json();
+        
+        return Array.isArray(data) ? data:[];
     }catch(error){
         console.log(error);
         return "error fetchind data catch example"
@@ -37,7 +36,6 @@ export const FormData = () => {
                     setFetchError(data.error); // Maneja el error  
                     setWeather([]); // Limpia los datos  
                 } else {  
-                    console.log(weather);
                     setWeather(data);  
                     setFetchError(null); // Limpia errores  
                 }  
@@ -49,7 +47,6 @@ export const FormData = () => {
         <>
             <Header title="Buscar usuarios" />
             <div className="container-buscar">
-                <FormUser/>
                 <h1>Buscar usuarios</h1>
                 <input
                     type="text"
@@ -64,7 +61,7 @@ export const FormData = () => {
             {fetchError && <div>Error: {fetchError} </div>}
             {weather.length > 0 ? (
                 weather.map((weathers)=>(
-                    <WheatherCard key={weathers._id} weather={weathers} /> 
+                    <WeatherCard key={weathers._id} weather={weathers} /> 
                 ))
             ) : (
                 <div>No hay usuarios encontrados.</div> 

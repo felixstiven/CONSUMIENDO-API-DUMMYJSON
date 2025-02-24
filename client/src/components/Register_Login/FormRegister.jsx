@@ -1,31 +1,46 @@
-import './Form.css'
+import './FormRegister.css'
 import { FaUserPlus,  FaEyeDropper } from "react-icons/fa";
-import { BsBuildingsFill } from "react-icons/bs";
+
 import { useState } from 'react';
+import Swalt from 'sweetalert2';
 
 export default function FormUser() {
 
-const [nombre, setNombre] = useState("");
-const [apellido, setApellido] = useState("");
-const [edad, setEdad] = useState(0);
-const [empleado, setEmpleado] = useState(false);
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [edad, setEdad] = useState(0);
 
-const handleSubmit =  async (e) => {
-  e.preventDefault();
- const res = await fetch('http://localhost:5000/usuario/create', {
-  method:"POST",
-   body: JSON.stringify({nombre, apellido, edad, empleado}),
-   headers:{
-    'Content-Type':'application/json'
-   }
-});
-const data = await res.json();
-console.log(data)
-}
-
-
-
-  return (
+  
+  const handleSubmit =  async (e) => {
+    e.preventDefault();
+    const res = await fetch('http://localhost:5000/usuario/create', {
+      method:"POST",
+      body: JSON.stringify({nombre, apellido, edad}),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    });
+    if(res.ok){
+      const data = await res.json();
+      Swalt.fire({
+        title: " <h1>Registro Exitoso!!</h1>",
+            html: "Hola <strong>"+nombre+"</strong> te has registrado con exito!!",
+            icon: "success",
+            timer : 4000
+      })
+      console.log(data);
+    } else(err)=>{
+        Swalt.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No se logro resgistrar",
+          footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
+        })
+      }
+    }
+    
+    
+    return (
     <>
       <form  onSubmit={handleSubmit} className="container-form">
         <h1>Registro</h1>
@@ -44,7 +59,7 @@ console.log(data)
                 setApellido(e.target.value)}}
               type="text" className='icon-input' placeholder='Apellido' name='apellido'
 
-               />
+            />
             </div>
             <div className="input-container">
               <FaEyeDropper className='input-icon' />
@@ -52,14 +67,8 @@ console.log(data)
               onChange={(e) => {setEdad(e.target.value)}}
               type="number" className='icon-input'  placeholder='Edad' name='edad'/>
             </div>
-            <div className="input-container">
-              <BsBuildingsFill className='input-icon' />
-              <input 
-              onChange={(e)=>{setEmpleado(e.target.checked)}}
-              type="checkbox" className='icon-input'  placeholder='Empleado'/>
-            </div>
-            <button type='submit'>Registrarme</button>  
-         </div>
+                <button type='submit'>Registrarme</button>
+        </div>
       </form>
     </>
   )
