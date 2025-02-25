@@ -29,10 +29,11 @@ export default function FormUser() {
             icon: "success",
             timer : 4000
       }).then(()=>{
-        navigate('/productos');
+        navigate('/play');
       })
       console.log(data);
-    } else(err)=>{
+    } else{
+        const errorData = await res.json();
         Swal.fire({
           icon: "error",
           title: "Oops...",

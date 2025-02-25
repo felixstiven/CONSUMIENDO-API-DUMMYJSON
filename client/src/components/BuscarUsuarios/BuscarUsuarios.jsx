@@ -1,7 +1,7 @@
 
 import { useState, useTransition} from "react";
 import { WeatherCard } from "../WeatherCard/WeatherCard.jsx";
-import { Header } from "../Header/Header";
+import { Header } from "../Header/Header.jsx";
 import './buscarUsuarios.css'
 
 
@@ -23,7 +23,7 @@ const fetchData = async (nombre) =>{
 };
 
 
-export const FormData = () => {  
+export const BuscarUsuarios = () => {  
     const [nombre, setNombre] = useState("");  
     const [isPending, startTransition] = useTransition();  
     const [weather, setWeather] = useState([]);  
@@ -43,6 +43,10 @@ export const FormData = () => {
         });  
     };  
 
+    const handleDelete =(id) => {
+        setWeather((prevWeather) => prevWeather.filter(user => user._id !== id));
+    }
+
     return (
         <>
             <Header title="Buscar usuarios" />
@@ -61,7 +65,7 @@ export const FormData = () => {
             {fetchError && <div>Error: {fetchError} </div>}
             {weather.length > 0 ? (
                 weather.map((weathers)=>(
-                    <WeatherCard key={weathers._id} weather={weathers} /> 
+                    <WeatherCard key={weathers._id} weather={weathers} onDelete={handleDelete} /> 
                 ))
             ) : (
                 <div>No hay usuarios encontrados.</div> 
