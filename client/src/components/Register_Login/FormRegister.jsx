@@ -70,7 +70,7 @@ export default function FormUser() {
               onChange={(e) => {setEdad(e.target.value)}}
               type="number" className='icon-input'  placeholder='Edad' name='edad'/>
             </div>
-                <button type='submit'>Registrarme</button>
+                <button className='btn-play' type='submit'>Registrarme</button>
         </div>
       </form>
     </>

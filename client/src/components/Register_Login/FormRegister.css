@@ -50,13 +50,22 @@
 
 @media(max-width:375px){
     .container-form{
-        background-color: red;
-        width: 280px;
+        width: 100%;
     }& .form{
         width: 100%;
-        background-color: #2196f3;
     }& .input-container{
+        font-size: 12px;
         width: 100%;
+        & .input-icon{
+            font-size: 14px;
+        }
+        & .icon-input{
+            width: 100%;
+            font-size: 12px;
+        }
+    }& .btn-play{
+        width: 100%;
+        font-size: 15px;
     }
 }
 
