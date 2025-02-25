@@ -1,6 +1,6 @@
 .container-form{
     background-color: rgba(53, 52, 52, 0.668);
-    width: 100%;
+    width: 50%;
     padding: 7cqb;
     color: #ffff;
     display: flex;
@@ -37,4 +37,26 @@
    }
 }
 
+
+@media(max-width:760px){
+    .container-form{
+        width: 280px;
+    }& .form{
+        width: 100%;
+    }& .input-container{
+        width: 100%;
+    }
+}
+
+@media(max-width:375px){
+    .container-form{
+        background-color: red;
+        width: 280px;
+    }& .form{
+        width: 100%;
+        background-color: #2196f3;
+    }& .input-container{
+        width: 100%;
+    }
+}
 
