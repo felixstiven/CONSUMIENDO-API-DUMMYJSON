@@ -5,17 +5,18 @@ import Swal from 'sweetalert2';
 export const WeatherCard = ({weather, onDelete}) => {
     
     if(!weather || weather.length === 0){
-        return console.log("no hay datos")
+        console.log("no hay datos")
+        return null;
     }
 
-    const {_id, nombre, apellido, edad} = weather;
+    const {_id, nombre, apellido, edad, foto} = weather;
 
     const handleDelete = async (id)=>{
       console.log(id);
 
       const BASEURL = "http://localhost:5000/usuario/";
 
-      // Primero se solicita confirmacion antes de elimnar
+      // confirmacion antes de elimnar
       const result = await Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -52,6 +53,15 @@ export const WeatherCard = ({weather, onDelete}) => {
 
     return (  
               <div key={_id} className='card-section' id={_id}>
+                {
+                  foto ?
+                     <div>
+                       <img src={foto} />
+                     </div>
+                     :<div>
+                        <img src='avatar.png' alt={`${nombre} ${apellido} `}/>
+                      </div>
+                }
                 <h2 className='name'>{nombre}</h2>
                 <p className='email'>{apellido}</p> 
                 <p className='description'>{edad}</p>
