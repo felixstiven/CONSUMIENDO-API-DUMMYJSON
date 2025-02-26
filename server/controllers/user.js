@@ -1,4 +1,12 @@
 import userModelo from '../models/user.js';
+import cloudinary from 'cloudinary';
+import streamifier from 'streamifier';
+
+cloudinary.config({
+    cloud_name:process.env.CLOUD_NAME,
+    api_key:process.env.API_KEY,
+    api_secret:process.env.API_SECRET
+})
 
 class usersController{
     constructor(){
@@ -7,8 +15,37 @@ class usersController{
 
     async create(req, res){
         try{
-            const data = await userModelo.create(req.body);
-            res.status(201).json(data);
+            let fotoUrl; // variable para almacenar la url de la imagen
+
+            if(req.file){
+                //convertir el buffer a un stream y subirlo a cloudinary
+                const stream = cloudinary.uploader.upload_stream({resource_type: 'auto'},
+                    (error, result) =>{
+                        if(error){
+                            return req.status(500).json({message: 'Error uploading image', error});
+                        }
+                        fotoUrl = result.secure_url; // guardar la url segura
+
+                        // Despues de que la imagen se suba, crea el usuario
+                        createUser();
+                    });
+                    // crear un stream y enviarlo a cloudinary
+                    streamifier.createReadStream(req.file.buffer).pipe(stream);
+            }else{
+                // si no hay imagen, crear el usuario sin foto
+                createUser();
+            }
+            // funcion de crear al usuario
+            const createUser = async () => {
+                const userData = {
+                    ...req.body, // Obtener los datos del usuario del cuerpo solicitud
+                    foto: fotoUrl //Agregar la url de la imagen (si se subio)
+                };
+                const data = await userModelo.create(userData)// usando el modelo para crear el usuario
+                res.status(201).json(data);
+                
+            };
+            
         }catch(error){
             res.status(500).json({message: 'Error creating user', error});
         }

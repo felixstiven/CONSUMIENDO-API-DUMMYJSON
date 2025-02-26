@@ -17,6 +17,9 @@ const userSchema = new mongoose.Schema(
         },
         empleado:{
             type:Boolean,
+        },
+        foto: {
+            type: String
         }
     },{timestamps:true}
 );
