@@ -1,33 +1,34 @@
 import mongoose from 'mongoose';
-import Usuario from '../shemas/usuarios.js'
+import User from '../shemas/usuarios.js'
 
-class userModelo{
+class UserModelo{
+    
     async create(usuario){
-        return await Usuario.create(usuario)
+        return await User.create(usuario)
     };
 
     async getAll(){
-        return await Usuario.find();
+        return await User.find();
     }
 
 
     async getOne(id){
-        return await Usuario.findById(id);
+        return await User.findById(id);
     }
     async getFilter(nombre){
         console.log('buscando por:', nombre)
-        return await Usuario.find({nombre: new RegExp(nombre, 'i')});
+        return await User.find({nombre: new RegExp(nombre, 'i')});
     }
 
     async update(id, user){
-        return await Usuario.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(id)}, user)
+        return await User.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(id)}, user)
     }
 
     async delete(id){
-       return await Usuario.findOneAndDelete( {_id: new mongoose.Types.ObjectId(id)})
+       return await User.findOneAndDelete( {_id: new mongoose.Types.ObjectId(id)})
     }
 
 
 }
 
-export default new userModelo();
+export default new UserModelo();

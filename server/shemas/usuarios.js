@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const userSchema = new mongoose.Schema(
+const UserShema = new mongoose.Schema(
     {
         nombre:{
             type:String,
@@ -18,11 +18,13 @@ const userSchema = new mongoose.Schema(
         empleado:{
             type:Boolean,
         },
-        foto: {
-            type: String
+        image: {
+            public_id: String,
+            secure_url: String
         }
     },{timestamps:true}
 );
 
+const User = mongoose.model('Usuario', UserShema);
 
-export default  mongoose.model('Usuario', userSchema);
+export default User;

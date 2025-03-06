@@ -1,8 +1,12 @@
 import express from 'express';
 import usersController from '../controllers/user.js';
 const route = express.Router();
+import fileUpload from 'express-fileupload';
 
-route.post('/create', usersController.create);
+route.post('/create',  fileUpload({
+                        useTempFiles:true,
+                        tempFileDir:'./uploads',
+                        }),  usersController.create);
 
 route.get('/', usersController.getAll);
 

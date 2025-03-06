@@ -1,60 +1,44 @@
-import userModelo from '../models/user.js';
-import cloudinary from 'cloudinary';
-import streamifier from 'streamifier';
+import UserModelo from '../models/user.js';
+import { uploadImage, deleteImage } from '../cloudinay.js';
+import fs from 'fs-extra'
 
-cloudinary.config({
-    cloud_name:process.env.CLOUD_NAME,
-    api_key:process.env.API_KEY,
-    api_secret:process.env.API_SECRET
-})
 
-class usersController{
+class UsersController{
     constructor(){
 
     }
 
     async create(req, res){
         try{
-            let fotoUrl; // variable para almacenar la url de la imagen
+            const {nombre, apellido, edad, empleado} = req.body;
 
-            if(req.file){
-                //convertir el buffer a un stream y subirlo a cloudinary
-                const stream = cloudinary.uploader.upload_stream({resource_type: 'auto'},
-                    (error, result) =>{
-                        if(error){
-                            return req.status(500).json({message: 'Error uploading image', error});
-                        }
-                        fotoUrl = result.secure_url; // guardar la url segura
+            const userData = {nombre, apellido, edad, empleado};
+            const user = await UserModelo.create(userData);
 
-                        // Despues de que la imagen se suba, crea el usuario
-                        createUser();
-                    });
-                    // crear un stream y enviarlo a cloudinary
-                    streamifier.createReadStream(req.file.buffer).pipe(stream);
-            }else{
-                // si no hay imagen, crear el usuario sin foto
-                createUser();
+            if(req.files?.image){
+               const result =  await uploadImage(req.files.image.tempFilePath);
+               user.image ={
+                public_id : result.public_id,
+                secure_url: result.secure_url
+               }
+
+               await user.save();
+
+               await fs.unlink(req.files.image.tempFilePath); // eliminar archivos del local cuando se sube a clodinary
             }
-            // funcion de crear al usuario
-            const createUser = async () => {
-                const userData = {
-                    ...req.body, // Obtener los datos del usuario del cuerpo solicitud
-                    foto: fotoUrl //Agregar la url de la imagen (si se subio)
-                };
-                const data = await userModelo.create(userData)// usando el modelo para crear el usuario
-                res.status(201).json(data);
-                
-            };
             
+            res.status(201).json(user);
+
         }catch(error){
-            res.status(500).json({message: 'Error creating user', error});
+            console.log(error);
+            res.status(500).json({message: 'Error creating user', error})
         }
     };
 
     async update(req, res){
         try{
             const {id} = req.params;
-            const user = await userModelo.update(id, req.body);
+            const user = await UserModelo.update(id, req.body);
             res.status(201).json(user);
         }catch(error){
             res.status(500).json({message: 'Error updating user', error});  
@@ -64,9 +48,13 @@ class usersController{
     async delete(req, res){
         try{
             const {id} = req.params;
-            const data = await userModelo.delete(id);
+            const data = await UserModelo.delete(id);
             if(!data){
                 return res.status(404).json({message: 'User not found'})
+            }
+            
+            if(data.image?.public_id){
+                await deleteImage(data.image.public_id);
             }
             res.status(201).json({message: 'User deleted succesfully'});
         }catch(error){
@@ -76,8 +64,19 @@ class usersController{
 
     async getAll(req, res){
         try{
-            const data = await userModelo.getAll(req.body);
-            res.status(200).json(data);
+            const data = await UserModelo.getAll(req.body);
+            // orden de obtencion de datos 
+            const formttedData = data.map(user => ({
+                _id: user._id,
+                nombre: user.nombre,
+                apellido: user.apellido,
+                edad: user.edad,
+                image: user.image,
+                createdAt: user.createdAt, // Agregamos createdAt si es necesario  
+                updatedAt: user.updatedAt, // Agregamos updatedAt si es necesario  
+                __v: user.__v
+            }))
+             res.status(200).json(formttedData);
         }catch(error){
             res.status(500).json({message: 'Error finding users', error});
         }
@@ -86,7 +85,7 @@ class usersController{
     async getFilter(req, res){
         try{
             const {nombre} = req.params;
-            const data = await userModelo.getFilter(nombre);
+            const data = await UserModelo.getFilter(nombre);
 
             if(data.length == 0){
                 return res.status(404).json({message:'No user found'});
@@ -101,7 +100,7 @@ class usersController{
     async getOne(req, res){
         try{
             const id = req.params.id;
-            const data = await userModelo.getOne(id);
+            const data = await UserModelo.getOne(id);
             if(!data){
                 return res.status(404).json({message: 'User not found'})
             }
@@ -112,4 +111,4 @@ class usersController{
     };
 }
 
-export default new usersController();
+export default new UsersController();
