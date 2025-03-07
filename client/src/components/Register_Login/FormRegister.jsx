@@ -9,17 +9,20 @@ export default function FormUser() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [edad, setEdad] = useState(0);
+  const [image, setImage] = useState(null);
   const navigate = useNavigate();
-
+  
+  const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('apellido', apellido);
+    formData.append('edad', edad);
+    formData.append('image', image);
   
   const handleSubmit =  async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/usuario/create', {
+    const res = await fetch('http://localhost:3000/usuario/create', {
       method:"POST",
-      body: JSON.stringify({nombre, apellido, edad}),
-      headers:{
-        'Content-Type':'application/json'
-      }
+      body: formData
     });
     if(res.ok){
       const data = await res.json();
@@ -33,12 +36,11 @@ export default function FormUser() {
       })
       console.log(data);
     } else{
-        const errorData = await res.json();
         Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "No se logro resgistrar",
-          footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
+          //footer: JSON.parse(JSON.stringify(err)).message==="Network Error" ? "intenta mas tarde" : JSON.parse(JSON.stringify(err)).message
         })
       }
     }
@@ -70,6 +72,12 @@ export default function FormUser() {
               <input 
               onChange={(e) => {setEdad(e.target.value)}}
               type="number" className='icon-input'  placeholder='Edad' name='edad'/>
+            </div>
+            <div className="input-container">
+              <FaEyeDropper className='input-icon' />
+              <input 
+              onChange={(e) => {setImage(e.target.files[0])}}
+              type="file" className='icon-input'  placeholder='Edad' name='image'/>
             </div>
                 <button className='btn-play' type='submit'>Registrarme</button>
         </div>
