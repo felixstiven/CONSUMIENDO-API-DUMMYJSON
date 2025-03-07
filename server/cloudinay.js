@@ -20,3 +20,5 @@ export async function deleteImage(publicId) {
     return await cloudinary.uploader.destroy(publicId);
     
 }
+
+//
