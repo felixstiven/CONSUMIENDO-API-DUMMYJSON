@@ -7,7 +7,7 @@ import './buscarUsuarios.css'
 
 const fetchData = async (nombre) =>{
     try{ 
-        const BASE_URL ="http://localhost:5000/usuario/filter";
+        const BASE_URL ="http://localhost:4000/usuario/filter";
         const response = await fetch(`${BASE_URL}/${nombre}`);
     
         if(!response.ok){

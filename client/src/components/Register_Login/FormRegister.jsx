@@ -20,7 +20,7 @@ export default function FormUser() {
   
   const handleSubmit =  async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:3000/usuario/create', {
+    const res = await fetch('http://localhost:4000/usuario/create', {
       method:"POST",
       body: formData
     });

@@ -9,12 +9,12 @@ export const WeatherCard = ({weather, onDelete}) => {
         return null;
     }
 
-    const {_id, nombre, apellido, edad, foto} = weather;
+    const {_id, nombre, apellido, edad} = weather;
 
     const handleDelete = async (id)=>{
       console.log(id);
 
-      const BASEURL = "http://localhost:5000/usuario/";
+      const BASEURL = "http://localhost:4000/usuario/";
 
       // confirmacion antes de elimnar
       const result = await Swal.fire({
@@ -52,22 +52,23 @@ export const WeatherCard = ({weather, onDelete}) => {
     
 
     return (  
+              console.log('weather', weather),
               <div key={_id} className='card-section' id={_id}>
-                {
-                  foto ?
-                     <div>
-                       <img src={foto} />
-                     </div>
-                     :<div>
-                        <img src='avatar.png' alt={`${nombre} ${apellido} `}/>
-                      </div>
-                }
+              {  
+                weather.image && weather.image.secure_url ? (
+                  <img src={weather.image.secure_url} alt={weather.nombre} />
+                ): (
+                  <div>  
+                    <img src='avatar.png' alt={`${nombre} ${apellido}`} />  
+                  </div>  
+                )
+              }
                 <h2 className='name'>{nombre}</h2>
                 <p className='email'>{apellido}</p> 
                 <p className='description'>{edad}</p>
                 <div>
                   <button>Editar</button>
-                  <button onClick={(e) => handleDelete(_id)}>eliminar</button>
+                  <button onClick={() => handleDelete(_id)}>eliminar</button>
                 </div>
               </div>
       )
@@ -79,7 +80,11 @@ WeatherCard.propTypes = {
     nombre: PropTypes.string,
     apellido: PropTypes.string,
     edad: PropTypes.number,
-    length: PropTypes.number
+    length: PropTypes.number,
+    secure_url: PropTypes.string,
+    image: PropTypes.shape({
+      secure_url: PropTypes.string
+    })
   }).isRequired,
   onDelete: PropTypes.func
 }
