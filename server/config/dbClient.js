@@ -5,7 +5,10 @@ class dbClient {
         this.conectarBaseDatos();
     }
     async conectarBaseDatos(){
-        const queryString =`mongodb+srv://${process.env.USERDB}:${process.env.PASSWORDDB}@${process.env.SERVERDB}/testprueba?retryWrites=true&w=majority`;
+        const userName = encodeURIComponent(process.env.USERDB);
+        const password = encodeURIComponent(process.env.PASSWORDDB);    
+        console.log(process.env.USERDB, process.env.PASSWORDDB, process.env.SERVERDB);
+        const queryString =`mongodb+srv://${userName}:${password}@cluster0.pymn1.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0`;
         // this.client = new MongoClient(queryString );
         try{
             await mongoose.connect(queryString);
