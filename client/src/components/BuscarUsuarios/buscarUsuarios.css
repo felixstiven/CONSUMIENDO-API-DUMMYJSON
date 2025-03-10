@@ -1,3 +1,97 @@
+
 .container-buscar{
+    margin-top: 10px;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.container-buscar-name{
+    background-color:#61dafb85;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    padding: 10px;
+    width: 400px;
+    & h1{
+        margin-bottom: 10px;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    & input{
+        background-color: #fff;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+}
+
+.container-weather{
+    
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.card-section{
+    background-color:#61dafb85;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1px;
+    margin-top: 20px;
+    & img{
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
+    & .name{
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    & .btn-section{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+        & .btn{
+            padding: 10px;
+            background-color: rgb(94, 232, 152);
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        } & .btn-delete{
+            background-color: #e92727c5;
+        }
+    }
+}
+
+
+
+
+
+
+
+@media (max-width: 765px) {
+    .container-buscar{
+        width: 300px;
+    }
+}
+
+
+
+@media (max-width: 440px) {
+    .container-buscar{
+        width: 200px;
+    }
 }

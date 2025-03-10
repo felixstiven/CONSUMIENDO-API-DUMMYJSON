@@ -2,7 +2,7 @@ import './Productos.css';
 import { useState, useEffect } from 'react';
 import { Header } from '../Header/Header';
 import { ProductosCard } from '../ProductCard/ProductCard';
-import { Section } from './Section';
+import { Users } from './Users.jsx';
 
 
 
@@ -100,7 +100,7 @@ export const Productos = () => {
                 {
                     estadoUsuarios ? (
                         <>
-                            <Section/>
+                            <Users/>
                         </>
 
                     ) : 

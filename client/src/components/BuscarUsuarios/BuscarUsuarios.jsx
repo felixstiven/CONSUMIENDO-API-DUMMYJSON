@@ -49,27 +49,38 @@ export const BuscarUsuarios = () => {
 
     return (
         <>
-            <Header title="Buscar usuarios" />
+            <Header/>
             <div className="container-buscar">
-                <h1>Buscar usuarios</h1>
-                <input
-                    type="text"
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                />
-                <button onClick={handleSubmit}>Buscar</button>
+                <div className="container-buscar-name">
+                    <h1>BUSCA TU USUARIO </h1>
+                    <p></p>
+                    <input
+                        type="text"
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
+                    />
+                    <button onClick={handleSubmit}>Buscar</button>
+                </div>
+                <div className="container-buscar-name">
+                    <h1>BUSCAR TODOS LOS  USUARIOS</h1>
+                    <button onClick={handleSubmit}>Buscar</button>
+                </div>
+                
             </div>
             
 
             {isPending && <div>loading....</div>}
             {fetchError && <div>Error: {fetchError} </div>}
-            {weather.length > 0 ? (
-                weather.map((weathers)=>(
-                    <WeatherCard key={weathers._id} weather={weathers} onDelete={handleDelete} /> 
-                ))
-            ) : (
-                <div>No hay usuarios encontrados.</div> 
-            )}
+
+            <div className="container-weather">
+                {weather.length > 0 ? (
+                    weather.map((weathers)=>(
+                        <WeatherCard key={weathers._id} weather={weathers} onDelete={handleDelete} /> 
+                    ))
+                ) : (
+                    <div>No hay usuarios encontrados.</div> 
+                )}
+            </div>
         </>    
        
     );

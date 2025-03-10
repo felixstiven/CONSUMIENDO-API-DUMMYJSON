@@ -3,7 +3,7 @@
 import UseCard from '../UserCard/UseCard';
 import { useState, useEffect, useCallback, } from 'react';
 
-export const Section = ( ) => {
+export const Users = ( ) => {
   
   
   const [count, setCount] = useState(1)
@@ -30,8 +30,8 @@ export const Section = ( ) => {
     })
   },[count])
 
-  const handleSiguiente = (event) =>{
-    event.preventDefault();
+  const handleSiguiente = (e) =>{
+    e.preventDefault();
     setCount( count + 1)
 
   };

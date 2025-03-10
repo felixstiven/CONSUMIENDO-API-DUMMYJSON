@@ -53,24 +53,26 @@ export const WeatherCard = ({weather, onDelete}) => {
 
     return (  
               console.log('weather', weather),
+          
               <div key={_id} className='card-section' id={_id}>
-              {  
-                weather.image && weather.image.secure_url ? (
-                  <img src={weather.image.secure_url} alt={weather.nombre} />
-                ): (
-                  <div>  
-                    <img src='avatar.png' alt={`${nombre} ${apellido}`} />  
-                  </div>  
-                )
-              }
-                <h2 className='name'>{nombre}</h2>
-                <p className='email'>{apellido}</p> 
-                <p className='description'>{edad}</p>
-                <div>
-                  <button>Editar</button>
-                  <button onClick={() => handleDelete(_id)}>eliminar</button>
+                {  
+                  weather.image && weather.image.secure_url ? (
+                    <img src={weather.image.secure_url} alt={weather.nombre} />
+                  ): (
+                    
+                      <img src='avatar.png' alt={`${nombre} ${apellido}`} />  
+                     
+                  )
+                }
+                <h5 className='name'>Nombre: {nombre}</h5>
+                <p className='email'>Apellido: {apellido}</p> 
+                <p className='description'>Edad: {edad}</p>
+                <div className='btn-section'>
+                  <button className='btn'>Editar</button>
+                  <button className='btn btn-delete' onClick={() => handleDelete(_id)}>Eliminar</button>
                 </div>
               </div>
+             
       )
 }      
 
