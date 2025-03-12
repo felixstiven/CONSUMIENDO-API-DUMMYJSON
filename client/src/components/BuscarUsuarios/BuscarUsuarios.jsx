@@ -1,11 +1,30 @@
 
 import { useState, useTransition} from "react";
-import { WeatherCard } from "../WeatherCard/WeatherCard.jsx";
+import { FilterCard} from "../WeatherCard/FilterCard.jsx";
 import { Header } from "../Header/Header.jsx";
 import './buscarUsuarios.css'
 
 
-const fetchData = async (nombre) =>{
+
+const fetchData = async () => {
+    try {
+        const BASE_URL = "http://localhost:4000/usuario";
+        const response = await fetch(BASE_URL);
+
+        if(!response.ok){
+            throw new Error("Error fetching data");
+        }
+        const data = await response.json();
+
+        return Array.isArray(data) ? data:[];
+    }catch(error){
+        console.log(error);
+        return "error fetchind data catch example"
+    }
+}
+
+
+const fetchDataFilter = async (nombre) =>{
     try{ 
         const BASE_URL ="http://localhost:4000/usuario/filter";
         const response = await fetch(`${BASE_URL}/${nombre}`);
@@ -26,17 +45,33 @@ const fetchData = async (nombre) =>{
 export const BuscarUsuarios = () => {  
     const [nombre, setNombre] = useState("");  
     const [isPending, startTransition] = useTransition();  
-    const [weather, setWeather] = useState([]);  
+    const [filter, setFilter] = useState([]);  
     const [fetchError, setFetchError] = useState(null); // Agregamos estado para manejar errores  
 
-    const handleSubmit = () => {  
+
+    const handleSubmitGetUsuarios = () => {
+        startTransition(() => {
+            fetchData().then(data => {
+                if (data.error) {
+                    setFetchError(data.error); // Maneja el error
+                    setFilter([]); // Limpia los datos
+                } else {
+                    setFilter(data);
+                    setFetchError(null); // Limpia errores
+                }
+            });
+        })
+
+    }
+
+    const handleSubmitFilter = () => {  
         startTransition(() => {  
-            fetchData(nombre).then(data => {  
+            fetchDataFilter(nombre).then(data => {  
                 if (data.error) {  
                     setFetchError(data.error); // Maneja el error  
-                    setWeather([]); // Limpia los datos  
+                    setFilter([]); // Limpia los datos  
                 } else {  
-                    setWeather(data);  
+                    setFilter(data);  
                     setFetchError(null); // Limpia errores  
                 }  
             });  
@@ -44,7 +79,7 @@ export const BuscarUsuarios = () => {
     };  
 
     const handleDelete =(id) => {
-        setWeather((prevWeather) => prevWeather.filter(user => user._id !== id));
+        setFilter((prevWeather) => prevWeather.filter(user => user._id !== id));
     }
 
     return (
@@ -59,11 +94,11 @@ export const BuscarUsuarios = () => {
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
                     />
-                    <button onClick={handleSubmit}>Buscar</button>
+                    <button onClick={handleSubmitFilter}>Buscar</button>
                 </div>
                 <div className="container-buscar-name">
                     <h1>BUSCAR TODOS LOS  USUARIOS</h1>
-                    <button onClick={handleSubmit}>Buscar</button>
+                    <button onClick={handleSubmitGetUsuarios}>Buscar</button>
                 </div>
                 
             </div>
@@ -73,9 +108,9 @@ export const BuscarUsuarios = () => {
             {fetchError && <div>Error: {fetchError} </div>}
 
             <div className="container-weather">
-                {weather.length > 0 ? (
-                    weather.map((weathers)=>(
-                        <WeatherCard key={weathers._id} weather={weathers} onDelete={handleDelete} /> 
+                {filter.length > 0 ? (
+                    filter.map((filters)=>(
+                        <FilterCard key={filters._id} filter={filters} onDelete={handleDelete} /> 
                     ))
                 ) : (
                     <div>No hay usuarios encontrados.</div> 

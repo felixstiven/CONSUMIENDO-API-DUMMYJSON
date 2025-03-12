@@ -2,14 +2,14 @@ import PropTypes from 'prop-types'
 import Swal from 'sweetalert2';
 
 
-export const WeatherCard = ({weather, onDelete}) => {
+export const FilterCard = ({filter, onDelete}) => {
     
-    if(!weather || weather.length === 0){
+    if(!filter || filter.length === 0){
         console.log("no hay datos")
         return null;
     }
 
-    const {_id, nombre, apellido, edad} = weather;
+    const {_id, nombre, apellido, edad} = filter;
 
     const handleDelete = async (id)=>{
       console.log(id);
@@ -52,12 +52,12 @@ export const WeatherCard = ({weather, onDelete}) => {
     
 
     return (  
-              console.log('weather', weather),
+              console.log('weather', filter),
           
               <div key={_id} className='card-section' id={_id}>
                 {  
-                  weather.image && weather.image.secure_url ? (
-                    <img src={weather.image.secure_url} alt={weather.nombre} />
+                  filter.image && filter.image.secure_url ? (
+                    <img src={filter.image.secure_url} alt={filter.nombre} />
                   ): (
                     
                       <img src='avatar.png' alt={`${nombre} ${apellido}`} />  
@@ -76,8 +76,8 @@ export const WeatherCard = ({weather, onDelete}) => {
       )
 }      
 
-WeatherCard.propTypes = {
-  weather: PropTypes.shape({
+FilterCard.propTypes = {
+  filter: PropTypes.shape({
     _id: PropTypes.string,
     nombre: PropTypes.string,
     apellido: PropTypes.string,
