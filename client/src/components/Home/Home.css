@@ -46,8 +46,10 @@ html{
 
 /*ESTILOS GENERALES*/
 .titulo-seccion{
-    font-family: "yellowtail";
     font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 18px;
     margin-top: -105px;
 }
 /* SECCION SOBRE MI*/
@@ -82,12 +84,17 @@ html{
 
 .sobremi .contenido-seccion .fila{
     display: flex;
+    justify-content: center;
+    gap: 20px;
     margin-top: 30px;
     justify-content: space-between;
 }
 .sobremi .contenido-seccion .fila .col{
+    background-color: #61dafb85;
     display: flex;
     flex-direction: column;
+    padding: 7px;
+    border-radius: 40px;
     & .fa-user{
         background-color: #696666;
         font-size: 35px;

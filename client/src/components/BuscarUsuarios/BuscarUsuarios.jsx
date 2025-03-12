@@ -93,12 +93,13 @@ export const BuscarUsuarios = () => {
                         type="text"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
+                        placeholder="Nombre de usuario registrado"
                     />
                     <button onClick={handleSubmitFilter}>Buscar</button>
                 </div>
                 <div className="container-buscar-name">
                     <h1>BUSCAR TODOS LOS  USUARIOS</h1>
-                    <button onClick={handleSubmitGetUsuarios}>Buscar</button>
+                    <button className="btnall" onClick={handleSubmitGetUsuarios}>Buscar</button>
                 </div>
                 
             </div>

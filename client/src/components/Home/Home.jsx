@@ -1,6 +1,7 @@
 
 import { Header } from "../Header/Header.jsx";
-import { BsPersonCircle, BsPinMap, BsEmojiSunglasses } from "react-icons/bs";
+import { GiTargetDummy } from "react-icons/gi";
+import { FaServer } from "react-icons/fa";
 
 
 
@@ -20,24 +21,26 @@ function Home() {
             </section>
             <section className="sobremi" id="sobremi">
                 <div className="contenido-seccion">
-                    <h2 className="titulo-seccion">Sobre Mi</h2>
-                    <p className="especial">Me dedico a estudiar, producir ideas creativas y originales</p>
+                    <h2 className="titulo-seccion">Juega!!</h2>
+                    <p className="especial">Prueba esta aplicacion</p>
                     <div className="fila">
                         <div className="col">
-                            <BsPersonCircle className="fa-user"/>
-                            <span className="titulo-detalle">Perfil</span>
-                            <p>Desarollador full stack y backend</p>
+                            <GiTargetDummy className="fa-user"/>
+                            <span className="titulo-detalle">APY DUMMIJSON</span>
+                            <p>Solicite a la api y obtenga datos de productos y usuarios</p>
+                            <div>
+                                <button className="btn btn-primary">Jugar</button>
+                            </div>
                         </div>
                         <div className="col">
-                            <BsPinMap className="fa-user"/>
-                            <span className="titulo-detalle">Ubicacion</span>
-                            <p>Colombia. Bogota D,C</p>
+                            <FaServer className="fa-user"/>
+                            <span className="titulo-detalle">MY API RESTful</span>
+                            <p>Ve y comprueba realizando solicitudes http de mi propio servidor</p>
+                            <div>
+                                <button className="btn btn-primary">Jugar</button>
+                            </div>
                         </div>
-                        <div className="col">
-                            <BsEmojiSunglasses className="fa-user"/>
-                            <span className="titulo-detalle">Intereses</span>
-                            <p>Estudiar, programar, jugar soccer, dedicar tiempo a mi familia.</p>
-                        </div>
+                        
                     </div>
                 </div>
             </section> 
